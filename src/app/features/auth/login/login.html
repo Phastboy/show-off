@@ -1,0 +1,10 @@
+<h2>Sign in</h2>
+<app-auth-form
+  submitLabel="Sign in"
+  [loading]="loading()"
+  [serverError]="error()"
+  (submitted)="onSubmit($event)"
+/>
+<p class="switch">
+  No account? <a routerLink="/auth/register">Create one</a>
+</p>
