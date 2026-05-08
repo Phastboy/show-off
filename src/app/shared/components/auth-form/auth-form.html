@@ -1,0 +1,36 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="field">
+    <label for="email">Email</label>
+    <input
+      id="email"
+      type="email"
+      formControlName="email"
+      autocomplete="email"
+      placeholder="ada@example.com"
+    />
+    @if (emailInvalid) {
+      <span class="error">Enter a valid email.</span>
+    }
+  </div>
+
+  <div class="field">
+    <label for="password">Password</label>
+    <input
+      id="password"
+      type="password"
+      formControlName="password"
+      placeholder="Min 8 characters"
+    />
+    @if (passwordInvalid) {
+      <span class="error">Password must be at least 8 characters.</span>
+    }
+  </div>
+
+  @if (serverError()) {
+    <p class="server-error">{{ serverError() }}</p>
+  }
+
+  <button type="submit" [disabled]="loading()">
+    {{ loading() ? 'Please wait…' : submitLabel() }}
+  </button>
+</form>
