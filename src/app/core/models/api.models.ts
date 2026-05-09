@@ -1,6 +1,9 @@
+// ── Request DTOs ────────────────────────────────────────────────────────────
+
 export interface RegisterDto {
   email: string;
   password: string;
+  name: string;
 }
 
 export interface LoginPasswordDto {
@@ -8,9 +11,13 @@ export interface LoginPasswordDto {
   password: string;
 }
 
+// ── Response shapes ──────────────────────────────────────────────────────────
+
 export interface RegisterResponse {
   accountId: string;
   email: string;
+  userId: string;
+  name: string;
   createdAt: string;
 }
 
@@ -22,4 +29,54 @@ export interface ReceiptTokenResponse {
 export interface ProfileResponse {
   accountId: string;
   expiresAt: string;
+}
+
+export interface UserProfile {
+  name?: string;
+  avatarUrl?: string;
+  avatarId?: string;
+  phoneNumber?: string;
+}
+
+export interface UpdateUserProfileDto {
+  name?: string;
+  avatarUrl?: string;
+  avatarId?: string;
+  phoneNumber?: string;
+}
+
+export interface VenueMediaDto {
+  type: 'IMAGE' | 'VIDEO';
+  url: string;
+  order: number;
+  caption?: string;
+}
+
+export interface PerkDto {
+  title: string;
+  description?: string;
+}
+
+export interface CreateVenueDto {
+  name: string;
+  location: string;
+  address: string;
+  capacity: number;
+  description?: string;
+  priceRangeMin?: number;
+  priceRangeMax?: number;
+  contactPhone?: string;
+  contactWhatsapp?: string;
+  amenities?: string[];
+  media?: VenueMediaDto[];
+  perks?: PerkDto[];
+}
+
+export interface VenueFilters {
+  location?: string;
+  minCapacity?: number;
+  maxPrice?: number;
+  amenities?: string[];
+  page?: number;
+  limit?: number;
 }
