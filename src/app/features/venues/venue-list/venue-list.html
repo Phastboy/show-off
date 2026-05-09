@@ -1,0 +1,30 @@
+<div class="venue-list-page">
+  <header class="vl-header">
+    <h1>Discover Venues</h1>
+    <button class="profile-btn" (click)="goToProfile()">My Profile</button>
+  </header>
+
+  <app-venue-filters (filtersChanged)="onFiltersChanged($event)" />
+
+  @if (loading()) {
+    <p class="state-msg">Loading venues…</p>
+  } @else if (error()) {
+    <p class="state-msg error">{{ error() }}</p>
+  } @else if (venues().length === 0) {
+    <p class="state-msg">No venues found. Try adjusting your filters.</p>
+  } @else {
+    <p class="result-count">{{ total() }} venue{{ total() === 1 ? '' : 's' }} found</p>
+
+    <div class="venue-grid">
+      @for (venue of venues(); track venue.id) {
+        <app-venue-card [venue]="venue" />
+      }
+    </div>
+
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="page() === 1">← Prev</button>
+      <span>Page {{ page() }}</span>
+      <button (click)="nextPage()" [disabled]="!hasMore">Next →</button>
+    </div>
+  }
+</div>

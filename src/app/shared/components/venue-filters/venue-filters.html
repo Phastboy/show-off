@@ -1,0 +1,21 @@
+<form [formGroup]="form" (ngSubmit)="apply()" class="filters">
+  <div class="filter-field">
+    <label for="location">Location</label>
+    <input id="location" type="text" formControlName="location" placeholder="e.g. Lekki" />
+  </div>
+
+  <div class="filter-field">
+    <label for="minCapacity">Min capacity</label>
+    <input id="minCapacity" type="number" formControlName="minCapacity" placeholder="e.g. 500" min="1" />
+  </div>
+
+  <div class="filter-field">
+    <label for="maxPrice">Max price (₦)</label>
+    <input id="maxPrice" type="number" formControlName="maxPrice" placeholder="e.g. 1500000" min="0" />
+  </div>
+
+  <div class="filter-actions">
+    <button type="submit">Search</button>
+    <button type="button" class="reset" (click)="reset()">Reset</button>
+  </div>
+</form>

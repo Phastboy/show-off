@@ -1,0 +1,53 @@
+<div class="venue-card">
+  <div class="venue-img">
+    @if (mainImage) {
+      <img [src]="mainImage" [alt]="venue().name" />
+    } @else {
+      <div class="venue-img-placeholder">No photo</div>
+    }
+  </div>
+
+  <div class="venue-body">
+    <h3 class="venue-name">{{ venue().name }}</h3>
+
+    <p class="venue-meta">
+      <span class="venue-location">{{ venue().location }}</span>
+      <span class="dot">·</span>
+      <span class="venue-capacity">Up to {{ venue().capacity }} guests</span>
+    </p>
+
+    @if (venue().description) {
+      <p class="venue-desc">{{ venue().description }}</p>
+    }
+
+    @if (venue().amenities?.length) {
+      <div class="venue-amenities">
+        @for (amenity of venue().amenities!.slice(0, 4); track amenity) {
+          <span class="amenity-tag">{{ amenity }}</span>
+        }
+        @if (venue().amenities!.length > 4) {
+          <span class="amenity-tag more">+{{ venue().amenities!.length - 4 }}</span>
+        }
+      </div>
+    }
+
+    @if (priceRange) {
+      <p class="venue-price">{{ priceRange }}</p>
+    }
+
+    @if (venue().contactWhatsapp || venue().contactPhone) {
+      <div class="venue-contacts">
+        @if (venue().contactWhatsapp) {
+          <a [href]="'https://wa.me/' + venue().contactWhatsapp" target="_blank" class="contact-btn whatsapp">
+            WhatsApp
+          </a>
+        }
+        @if (venue().contactPhone) {
+          <a [href]="'tel:' + venue().contactPhone" class="contact-btn call">
+            Call
+          </a>
+        }
+      </div>
+    }
+  </div>
+</div>
