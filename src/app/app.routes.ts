@@ -27,11 +27,17 @@ export const routes: Routes = [
       import('./features/venues/home/home').then((m) => m.Home),
   },
   {
+    path: 'venues',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/venues/venue-list/venue-list').then((m) => m.VenueList),
+  },
+  {
     path: 'profile',
     canActivate: [authGuard],
     loadComponent: () =>
       import('./features/profile/profile-page/profile-page').then((m) => m.ProfilePage),
   },
-  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'auth/login' },
+  { path: '', redirectTo: 'venues', pathMatch: 'full' },
+  { path: '**', redirectTo: 'venues' },
 ];

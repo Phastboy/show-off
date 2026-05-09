@@ -45,6 +45,36 @@ export interface UpdateUserProfileDto {
   phoneNumber?: string;
 }
 
+// ── Venue ────────────────────────────────────────────────────────────────────
+
+export interface VenueMedia {
+  type: 'IMAGE' | 'VIDEO';
+  url: string;
+  order: number;
+  caption?: string;
+}
+
+export interface Perk {
+  title: string;
+  description?: string;
+}
+
+export interface Venue {
+  id: string;
+  name: string;
+  description?: string;
+  location: string;
+  address: string;
+  capacity: number;
+  priceRangeMin?: number;
+  priceRangeMax?: number;
+  contactPhone?: string;
+  contactWhatsapp?: string;
+  amenities?: string[];
+  media?: VenueMedia[];
+  perks?: Perk[];
+}
+
 export interface VenueMediaDto {
   type: 'IMAGE' | 'VIDEO';
   url: string;
