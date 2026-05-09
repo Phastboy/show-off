@@ -1,0 +1,45 @@
+<div class="profile-page">
+  <header class="profile-header">
+    <button class="back-btn" (click)="goBack()">← Back</button>
+    <h1>My Profile</h1>
+  </header>
+
+  @if (loading()) {
+    <p class="state-msg">Loading…</p>
+  } @else {
+    <div class="profile-body">
+      <app-avatar-upload
+        [currentUrl]="profile()?.avatarUrl ?? null"
+        (uploaded)="onAvatarUploaded($event)"
+        (error)="onAvatarError($event)"
+      />
+
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" type="text" formControlName="name" placeholder="Hammed Anuoluwapo" />
+          @if (form.controls.name.invalid && form.controls.name.touched) {
+            <span class="error">Name is required (min 2 characters).</span>
+          }
+        </div>
+
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input id="phone" type="tel" formControlName="phoneNumber" placeholder="+2348012345678" />
+        </div>
+
+        @if (serverError()) {
+          <p class="server-error">{{ serverError() }}</p>
+        }
+
+        @if (successMsg()) {
+          <p class="success-msg">{{ successMsg() }}</p>
+        }
+
+        <button type="submit" [disabled]="saving()">
+          {{ saving() ? 'Saving…' : 'Save changes' }}
+        </button>
+      </form>
+    </div>
+  }
+</div>
