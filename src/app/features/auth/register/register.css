@@ -3,6 +3,36 @@ h2 {
   font-size: 1.25rem;
 }
 
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+label {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+input {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+input:focus {
+  border-color: #6366f1;
+}
+
+.error {
+  font-size: 0.75rem;
+  color: #ef4444;
+}
+
 .switch {
   margin-top: 1rem;
   text-align: center;
