@@ -21,12 +21,6 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'home',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/venues/home/home').then((m) => m.Home),
-  },
-  {
     path: 'venues',
     canActivate: [authGuard],
     loadComponent: () =>

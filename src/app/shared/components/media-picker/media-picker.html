@@ -1,0 +1,21 @@
+<div class="media-picker">
+  <label class="upload-btn">
+    + Add Media
+    <input type="file" [accept]="accept()" [multiple]="multiple()" (change)="onFilesSelected($event)" hidden />
+  </label>
+
+  @if (items().length) {
+    <div class="media-grid">
+      @for (item of items(); track $index) {
+        <div class="media-item">
+          <img [src]="item.preview" [alt]="item.asset.file.name" />
+          @if ($index === 0) { <span class="main-badge">Main</span> }
+          <span class="type-badge">{{ item.asset.type }}</span>
+          <button type="button" class="remove-btn" (click)="remove($index)">×</button>
+          <input type="text" class="caption-input" placeholder="Caption (optional)"
+            [value]="item.caption" (input)="updateCaption($index, $any($event.target).value)" />
+        </div>
+      }
+    </div>
+  }
+</div>
