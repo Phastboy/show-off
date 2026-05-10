@@ -33,6 +33,12 @@ export const routes: Routes = [
       import('./features/venues/venue-list/venue-list').then((m) => m.VenueList),
   },
   {
+    path: 'venues/create',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/venues/create-venue/create-venue').then((m) => m.CreateVenue),
+  },
+  {
     path: 'profile',
     canActivate: [authGuard],
     loadComponent: () =>

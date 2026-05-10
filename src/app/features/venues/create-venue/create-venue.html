@@ -1,0 +1,107 @@
+<div class="cv-page">
+  <header class="cv-header">
+    <button type="button" class="back-btn" (click)="goBack()">← Back</button>
+    <h1>List a Venue</h1>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="cv-form" novalidate>
+
+    <section class="cv-section">
+      <h2 class="section-title">Photos</h2>
+      <app-venue-image-picker (filesChanged)="onFilesChanged($event)" />
+    </section>
+
+    <section class="cv-section">
+      <h2 class="section-title">Basic info</h2>
+
+      <div class="field">
+        <label for="cv-name">Venue name <span class="required" aria-hidden="true">*</span></label>
+        <input id="cv-name" type="text" formControlName="name" placeholder="e.g. Grand Ballroom Ikeja" />
+        @if (form.controls.name.invalid && form.controls.name.touched) {
+          <span class="err" role="alert">Name is required (min 2 characters).</span>
+        }
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="cv-location">Location <span class="required" aria-hidden="true">*</span></label>
+          <input id="cv-location" type="text" formControlName="location" placeholder="e.g. Lekki" />
+          @if (form.controls.location.invalid && form.controls.location.touched) {
+            <span class="err" role="alert">Location is required.</span>
+          }
+        </div>
+
+        <div class="field">
+          <label for="cv-capacity">Capacity <span class="required" aria-hidden="true">*</span></label>
+          <input id="cv-capacity" type="number" formControlName="capacity" min="1" placeholder="500" />
+          @if (form.controls.capacity.invalid && form.controls.capacity.touched) {
+            <span class="err" role="alert">Capacity must be at least 1.</span>
+          }
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="cv-address">Full address <span class="required" aria-hidden="true">*</span></label>
+        <input id="cv-address" type="text" formControlName="address" placeholder="12 Admiralty Way, Lekki Phase 1" />
+        @if (form.controls.address.invalid && form.controls.address.touched) {
+          <span class="err" role="alert">Address is required.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="cv-desc">Description</label>
+        <textarea id="cv-desc" formControlName="description" rows="3" placeholder="Describe the space, ambiance, and what makes it unique…"></textarea>
+      </div>
+    </section>
+
+    <section class="cv-section">
+      <h2 class="section-title">Pricing</h2>
+      <div class="field-row">
+        <div class="field">
+          <label for="cv-min">Min price (₦)</label>
+          <input id="cv-min" type="number" formControlName="priceRangeMin" min="0" placeholder="500000" />
+        </div>
+        <div class="field">
+          <label for="cv-max">Max price (₦)</label>
+          <input id="cv-max" type="number" formControlName="priceRangeMax" min="0" placeholder="2000000" />
+        </div>
+      </div>
+    </section>
+
+    <section class="cv-section">
+      <h2 class="section-title">Contact</h2>
+      <div class="field-row">
+        <div class="field">
+          <label for="cv-phone">Phone</label>
+          <input id="cv-phone" type="tel" formControlName="contactPhone" placeholder="+2348012345678" />
+        </div>
+        <div class="field">
+          <label for="cv-wa">WhatsApp</label>
+          <input id="cv-wa" type="tel" formControlName="contactWhatsapp" placeholder="+2348012345678" />
+        </div>
+      </div>
+    </section>
+
+    <section class="cv-section">
+      <h2 class="section-title">Amenities</h2>
+      <div class="field">
+        <label for="cv-amenities">Comma-separated list</label>
+        <input id="cv-amenities" type="text" formControlName="amenities" placeholder="Parking, AC, Generator, Security" />
+      </div>
+    </section>
+
+    @if (serverError()) {
+      <p class="server-err" role="alert">{{ serverError() }}</p>
+    }
+
+    @if (submitting() && totalCount() > 0) {
+      <p class="upload-progress" aria-live="polite">
+        Uploading photos {{ uploadedCount() }} / {{ totalCount() }}…
+      </p>
+    }
+
+    <button type="submit" class="submit-btn" [disabled]="submitting()">
+      {{ submitting() ? 'Creating…' : 'Create venue' }}
+    </button>
+  </form>
+</div>

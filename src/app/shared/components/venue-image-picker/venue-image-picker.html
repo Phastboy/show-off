@@ -1,0 +1,37 @@
+<div class="picker">
+  <div class="picker-previews" aria-label="Selected images">
+    @for (item of picked(); track item.previewUrl; let i = $index) {
+      <div class="preview-wrap">
+        <img [src]="item.previewUrl" [alt]="'Selected image ' + (i + 1)" class="preview-img" />
+        @if (i === 0) {
+          <span class="main-badge" aria-label="Main image">Main</span>
+        }
+        <button
+          type="button"
+          class="remove-btn"
+          (click)="remove(i)"
+          [attr.aria-label]="'Remove image ' + (i + 1)"
+        >
+          ✕
+        </button>
+      </div>
+    }
+  </div>
+
+  <label class="add-btn" for="venue-img-input">
+    <span aria-hidden="true">＋</span> Add photos
+    <input
+      id="venue-img-input"
+      type="file"
+      accept="image/*"
+      multiple
+      class="sr-only"
+      (change)="onFilesSelected($event)"
+      aria-label="Add venue photos"
+    />
+  </label>
+
+  @if (count() > 0) {
+    <p class="hint">{{ count() }} photo{{ count() === 1 ? '' : 's' }} selected. First photo is the main image.</p>
+  }
+</div>
