@@ -1,8 +1,20 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import type { CreateVenueDto, VenueFilters, Venue } from '../models/api.models';
+import type { CreateVenueDto, Venue, VenueFilters } from '../models/api.models';
 
 const BASE = 'https://distinguished-dolorita-campusuniverse-5925f056.koyeb.app/api';
+
+export interface VenueListResponse {
+  data: Venue[];
+  total: number;
+  page: number;
+  limit: number;
+}
+
+export interface MediaUploadResponse {
+  url: string;
+  id: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class VenueService {
@@ -25,11 +37,11 @@ export class VenueService {
   createVenue(dto: CreateVenueDto) {
     return this.http.post<Venue>(`${BASE}/venues`, dto);
   }
-}
 
-export interface VenueListResponse {
-  data: Venue[];
-  total: number;
-  page: number;
-  limit: number;
+  uploadMedia(file: File) {
+    const form = new FormData();
+    form.append('file', file);
+    form.append('folderType', 'VENUE_GALLERY');
+    return this.http.post<MediaUploadResponse>(`${BASE}/media/upload`, form);
+  }
 }

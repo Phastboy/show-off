@@ -1,107 +1,105 @@
-<div class="cv-page">
+<div class="create-venue-page">
   <header class="cv-header">
-    <button type="button" class="back-btn" (click)="goBack()">← Back</button>
-    <h1>List a Venue</h1>
+    <button class="back-btn" (click)="goBack()">← Back</button>
+    <h1>List Your Venue</h1>
   </header>
 
-  <form [formGroup]="form" (ngSubmit)="submit()" class="cv-form" novalidate>
+  <form [formGroup]="vm.form" (ngSubmit)="submit()" class="cv-form">
 
     <section class="cv-section">
-      <h2 class="section-title">Photos</h2>
-      <app-venue-image-picker (filesChanged)="onFilesChanged($event)" />
-    </section>
-
-    <section class="cv-section">
-      <h2 class="section-title">Basic info</h2>
-
+      <h2>Basic Info</h2>
       <div class="field">
-        <label for="cv-name">Venue name <span class="required" aria-hidden="true">*</span></label>
-        <input id="cv-name" type="text" formControlName="name" placeholder="e.g. Grand Ballroom Ikeja" />
-        @if (form.controls.name.invalid && form.controls.name.touched) {
-          <span class="err" role="alert">Name is required (min 2 characters).</span>
+        <label for="name">Venue name *</label>
+        <input id="name" type="text" formControlName="name" placeholder="e.g. The Grand Pavilion" />
+        @if (vm.form.controls.name.invalid && vm.form.controls.name.touched) {
+          <span class="error">Venue name is required.</span>
         }
       </div>
-
+      <div class="field">
+        <label for="desc">Description</label>
+        <textarea id="desc" formControlName="description" rows="3" placeholder="What makes your venue special…"></textarea>
+      </div>
       <div class="field-row">
         <div class="field">
-          <label for="cv-location">Location <span class="required" aria-hidden="true">*</span></label>
-          <input id="cv-location" type="text" formControlName="location" placeholder="e.g. Lekki" />
-          @if (form.controls.location.invalid && form.controls.location.touched) {
-            <span class="err" role="alert">Location is required.</span>
+          <label for="location">Location *</label>
+          <input id="location" type="text" formControlName="location" placeholder="e.g. Lekki" />
+          @if (vm.form.controls.location.invalid && vm.form.controls.location.touched) {
+            <span class="error">Location is required.</span>
           }
         </div>
-
         <div class="field">
-          <label for="cv-capacity">Capacity <span class="required" aria-hidden="true">*</span></label>
-          <input id="cv-capacity" type="number" formControlName="capacity" min="1" placeholder="500" />
-          @if (form.controls.capacity.invalid && form.controls.capacity.touched) {
-            <span class="err" role="alert">Capacity must be at least 1.</span>
+          <label for="capacity">Capacity *</label>
+          <input id="capacity" type="number" formControlName="capacity" placeholder="e.g. 500" min="1" />
+          @if (vm.form.controls.capacity.invalid && vm.form.controls.capacity.touched) {
+            <span class="error">Enter a valid capacity.</span>
           }
         </div>
       </div>
-
       <div class="field">
-        <label for="cv-address">Full address <span class="required" aria-hidden="true">*</span></label>
-        <input id="cv-address" type="text" formControlName="address" placeholder="12 Admiralty Way, Lekki Phase 1" />
-        @if (form.controls.address.invalid && form.controls.address.touched) {
-          <span class="err" role="alert">Address is required.</span>
+        <label for="address">Full address *</label>
+        <input id="address" type="text" formControlName="address" placeholder="12 Example Street, Lagos" />
+        @if (vm.form.controls.address.invalid && vm.form.controls.address.touched) {
+          <span class="error">Address is required.</span>
         }
       </div>
-
-      <div class="field">
-        <label for="cv-desc">Description</label>
-        <textarea id="cv-desc" formControlName="description" rows="3" placeholder="Describe the space, ambiance, and what makes it unique…"></textarea>
-      </div>
     </section>
 
     <section class="cv-section">
-      <h2 class="section-title">Pricing</h2>
+      <h2>Pricing</h2>
       <div class="field-row">
         <div class="field">
-          <label for="cv-min">Min price (₦)</label>
-          <input id="cv-min" type="number" formControlName="priceRangeMin" min="0" placeholder="500000" />
+          <label for="priceMin">Min price (₦)</label>
+          <input id="priceMin" type="number" formControlName="priceRangeMin" placeholder="500000" min="0" />
         </div>
         <div class="field">
-          <label for="cv-max">Max price (₦)</label>
-          <input id="cv-max" type="number" formControlName="priceRangeMax" min="0" placeholder="2000000" />
+          <label for="priceMax">Max price (₦)</label>
+          <input id="priceMax" type="number" formControlName="priceRangeMax" placeholder="2000000" min="0" />
         </div>
       </div>
     </section>
 
     <section class="cv-section">
-      <h2 class="section-title">Contact</h2>
+      <h2>Contact</h2>
       <div class="field-row">
         <div class="field">
-          <label for="cv-phone">Phone</label>
-          <input id="cv-phone" type="tel" formControlName="contactPhone" placeholder="+2348012345678" />
+          <label for="phone">Phone</label>
+          <input id="phone" type="tel" formControlName="contactPhone" placeholder="+2348012345678" />
         </div>
         <div class="field">
-          <label for="cv-wa">WhatsApp</label>
-          <input id="cv-wa" type="tel" formControlName="contactWhatsapp" placeholder="+2348012345678" />
+          <label for="whatsapp">WhatsApp</label>
+          <input id="whatsapp" type="tel" formControlName="contactWhatsapp" placeholder="+2348012345678" />
         </div>
       </div>
     </section>
 
     <section class="cv-section">
-      <h2 class="section-title">Amenities</h2>
-      <div class="field">
-        <label for="cv-amenities">Comma-separated list</label>
-        <input id="cv-amenities" type="text" formControlName="amenities" placeholder="Parking, AC, Generator, Security" />
+      <h2>Amenities</h2>
+      <div class="amenity-input-row">
+        <input type="text" [value]="vm.amenityInput()"
+          (input)="vm.amenityInput.set($any($event.target).value)"
+          (keydown)="onAmenityKeydown($event)" placeholder="e.g. Parking, AC" />
+        <button type="button" class="add-btn" (click)="vm.addAmenity()">Add</button>
       </div>
+      @if (vm.amenities().length) {
+        <div class="amenity-tags">
+          @for (a of vm.amenities(); track a) {
+            <span class="amenity-tag">{{ a }}
+              <button type="button" (click)="vm.removeAmenity(a)">×</button>
+            </span>
+          }
+        </div>
+      }
     </section>
 
-    @if (serverError()) {
-      <p class="server-err" role="alert">{{ serverError() }}</p>
-    }
+    <section class="cv-section">
+      <h2>Photos</h2>
+      <app-media-picker accept="image/*" (changed)="onMediaChanged($event)" />
+    </section>
 
-    @if (submitting() && totalCount() > 0) {
-      <p class="upload-progress" aria-live="polite">
-        Uploading photos {{ uploadedCount() }} / {{ totalCount() }}…
-      </p>
-    }
-
-    <button type="submit" class="submit-btn" [disabled]="submitting()">
-      {{ submitting() ? 'Creating…' : 'Create venue' }}
+    @if (vm.serverError()) { <p class="server-error">{{ vm.serverError() }}</p> }
+    <button type="submit" class="submit-btn" [disabled]="vm.submitting()">
+      {{ vm.submitting() ? 'Submitting…' : 'List Venue' }}
     </button>
+
   </form>
 </div>
