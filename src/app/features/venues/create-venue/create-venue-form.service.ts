@@ -1,24 +1,22 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { forkJoin, of } from 'rxjs';
-import { VenueService } from '../../../core/services/venue';
-import { MediaService, UploadedMedia } from '../../../core/services/media.service';
-import type { VenueMediaDto } from '../../../core/models/api.models';
+import { CreateVenueService } from '../../../core/services/create-venue.service';
 import type { PickedMedia } from '../../../shared/components/media-picker/media-picker';
 
 @Injectable()
 export class CreateVenueFormService {
   private readonly fb = inject(FormBuilder);
-  private readonly venueService = inject(VenueService);
-  private readonly mediaService = inject(MediaService);
+
+  // Inject the orchestrator instead of VenueService/MediaService
+  private readonly createVenueOrchestrator = inject(CreateVenueService);
 
   readonly submitting = signal(false);
   readonly serverError = signal<string | null>(null);
   readonly amenities = signal<string[]>([]);
   readonly amenityControl = new FormControl('', { nonNullable: true });
 
-  // media owned by MediaPicker; service just holds the latest emission
-  pickedMedia: PickedMedia[] = [];
+  // Make media state reactive
+  readonly pickedMedia = signal<PickedMedia[]>([]);
 
   readonly form = this.fb.nonNullable.group({
     name: ['', Validators.required],
@@ -48,53 +46,38 @@ export class CreateVenueFormService {
       this.form.markAllAsTouched();
       return;
     }
+
     this.submitting.set(true);
     this.serverError.set(null);
-    const media = this.pickedMedia;
-    const uploads$ = media.length
-      ? forkJoin(media.map((m) => this.mediaService.uploadMedia(m.asset.file, 'VENUE_GALLERY')))
-      : of([] as UploadedMedia[]);
-    uploads$.subscribe({
-      next: (results: UploadedMedia[]) => this.postVenue(results, media, onSuccess),
+
+    const raw = this.form.getRawValue();
+    const payload = {
+      name: raw.name,
+      description: raw.description || undefined,
+      location: raw.location,
+      address: raw.address,
+      capacity: raw.capacity!,
+      priceRangeMin: raw.priceRangeMin ?? undefined,
+      priceRangeMax: raw.priceRangeMax ?? undefined,
+      contactPhone: raw.contactPhone || undefined,
+      contactWhatsapp: raw.contactWhatsapp || undefined,
+      amenities: this.amenities().length ? this.amenities() : undefined,
+    };
+
+    // Map UI model to Core upload data
+    const mediaUploadData = this.pickedMedia().map((m) => ({
+      file: m.asset.file,
+      type: m.asset.type,
+      caption: m.caption,
+    }));
+
+    // Delegate to the orchestrator
+    this.createVenueOrchestrator.createWithMedia(payload, mediaUploadData).subscribe({
+      next: onSuccess,
       error: () => {
-        this.serverError.set('Upload failed.');
+        this.serverError.set('Failed to create venue.');
         this.submitting.set(false);
       },
     });
-  }
-
-  private toMediaDto(results: UploadedMedia[], media: PickedMedia[]): VenueMediaDto[] {
-    return results.map((r, i) => ({
-      type: media[i].asset.type,
-      publicId: r.fileId,
-      url: r.url,
-      order: i,
-      caption: media[i].caption || undefined,
-    }));
-  }
-
-  private postVenue(results: UploadedMedia[], media: PickedMedia[], onSuccess: () => void) {
-    const raw = this.form.getRawValue();
-    this.venueService
-      .createVenue({
-        name: raw.name,
-        description: raw.description || undefined,
-        location: raw.location,
-        address: raw.address,
-        capacity: raw.capacity!,
-        priceRangeMin: raw.priceRangeMin ?? undefined,
-        priceRangeMax: raw.priceRangeMax ?? undefined,
-        contactPhone: raw.contactPhone || undefined,
-        contactWhatsapp: raw.contactWhatsapp || undefined,
-        amenities: this.amenities().length ? this.amenities() : undefined,
-        media: results.length ? this.toMediaDto(results, media) : undefined,
-      })
-      .subscribe({
-        next: onSuccess,
-        error: () => {
-          this.serverError.set('Failed to create venue.');
-          this.submitting.set(false);
-        },
-      });
   }
 }
