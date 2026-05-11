@@ -1,9 +1,4 @@
 <div class="venue-list-page">
-  <header class="vl-header">
-    <h1>Discover Venues</h1>
-    <button class="profile-btn" (click)="goToProfile()">My Profile</button>
-  </header>
-
   <app-venue-filters (filtersChanged)="onFiltersChanged($event)" />
 
   @if (loading()) {

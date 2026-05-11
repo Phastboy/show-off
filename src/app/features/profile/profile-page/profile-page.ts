@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { UserService } from '../../../core/services/user';
-import { AvatarUpload, AvatarUploadResult } from '../../../shared/components/avatar-upload/avatar-upload';
+import {
+  AvatarUpload,
+  AvatarUploadResult,
+} from '../../../shared/components/avatar-upload/avatar-upload';
 import type { UserProfile } from '../../../core/models/api.models';
 
 @Component({
@@ -14,7 +16,6 @@ import type { UserProfile } from '../../../core/models/api.models';
 })
 export class ProfilePage {
   private readonly userService = inject(UserService);
-  private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
   readonly loading = signal(true);
@@ -86,9 +87,5 @@ export class ProfilePage {
         this.serverError.set('Failed to save. Please try again.');
       },
     });
-  }
-
-  goBack() {
-    this.router.navigate(['/home']);
   }
 }

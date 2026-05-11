@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
 import { VenueService } from '../../../core/services/venue';
 import { VenueFilters } from '../../../shared/components/venue-filters/venue-filters';
 import { VenueCard } from '../../../shared/components/venue-card/venue-card';
@@ -14,7 +13,6 @@ import type { VenueFilters as VenueFiltersModel, Venue } from '../../../core/mod
 })
 export class VenueList {
   private readonly venueService = inject(VenueService);
-  private readonly router = inject(Router);
 
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
@@ -42,10 +40,6 @@ export class VenueList {
   prevPage() {
     this.page.update((p) => Math.max(1, p - 1));
     this.load();
-  }
-
-  goToProfile() {
-    this.router.navigate(['/profile']);
   }
 
   get hasMore() {

@@ -9,35 +9,38 @@ export const routes: Routes = [
     children: [
       {
         path: 'login',
-        loadComponent: () =>
-          import('./features/auth/login/login').then((m) => m.Login),
+        loadComponent: () => import('./features/auth/login/login').then((m) => m.Login),
       },
       {
         path: 'register',
-        loadComponent: () =>
-          import('./features/auth/register/register').then((m) => m.Register),
+        loadComponent: () => import('./features/auth/register/register').then((m) => m.Register),
       },
       { path: '', redirectTo: 'login', pathMatch: 'full' },
     ],
   },
   {
-    path: 'venues',
+    path: '',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./features/venues/venue-list/venue-list').then((m) => m.VenueList),
+      import('./shared/layouts/app-shell/app-shell').then((m) => m.AppShell),
+    children: [
+      {
+        path: 'venues',
+        loadComponent: () =>
+          import('./features/venues/venue-list/venue-list').then((m) => m.VenueList),
+      },
+      {
+        path: 'venues/create',
+        loadComponent: () =>
+          import('./features/venues/create-venue/create-venue').then((m) => m.CreateVenue),
+      },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./features/profile/profile-page/profile-page').then((m) => m.ProfilePage),
+      },
+      { path: '', redirectTo: 'venues', pathMatch: 'full' },
+    ],
   },
-  {
-    path: 'venues/create',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/venues/create-venue/create-venue').then((m) => m.CreateVenue),
-  },
-  {
-    path: 'profile',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/profile/profile-page/profile-page').then((m) => m.ProfilePage),
-  },
-  { path: '', redirectTo: 'venues', pathMatch: 'full' },
   { path: '**', redirectTo: 'venues' },
 ];
