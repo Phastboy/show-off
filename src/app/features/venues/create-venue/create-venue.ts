@@ -23,7 +23,6 @@ export class CreateVenue {
     }
   }
 
-  // Update the signal
   onMediaChanged(items: PickedMedia[]) {
     this.vm.pickedMedia.set(items);
   }

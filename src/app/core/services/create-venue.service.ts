@@ -4,31 +4,46 @@ import { MediaService } from './media.service';
 import { VenueService } from './venue';
 import type { CreateVenueDto, VenueMediaDto } from '../models/api.models';
 
+/** Payload consumed by createWithMedia, minus the media[] the service builds. */
 export type VenueFormPayload = Omit<CreateVenueDto, 'media'>;
 
-// 1. Create a DTO for the upload queue so core doesn't depend on UI/Component types
 export interface VenueMediaUploadData {
   file: File;
   type: 'IMAGE' | 'VIDEO';
   caption?: string;
 }
 
+/**
+ * Orchestrates the two-step "create venue" flow:
+ * 1. forkJoin — upload all gallery images in parallel.
+ * 2. Assemble media[] with stable order indices, then POST /api/venues.
+ *
+ * Keeps upload progress visible so the UI can show "Uploading 2 / 5…".
+ */
 @Injectable({ providedIn: 'root' })
 export class CreateVenueService {
   private readonly media = inject(MediaService);
   private readonly venue = inject(VenueService);
 
+  /** How many uploads have resolved so far (success or failure counted together). */
   readonly uploadedCount = signal(0);
+  /** Total images queued for the current submission. */
   readonly totalCount = signal(0);
 
-  // 2. Accept the rich media data
+  /**
+   * Uploads all files in parallel, then creates the venue.
+   * If files is empty the venue is created immediately with no media.
+   *
+   * @param payload  All venue fields except media[].
+   * @param mediaItems Ordered gallery media selected by the user.
+   */
   createWithMedia(payload: VenueFormPayload, mediaItems: VenueMediaUploadData[]) {
     this.uploadedCount.set(0);
     this.totalCount.set(mediaItems.length);
 
     const upload$ =
       mediaItems.length === 0
-        ? of([])
+        ? of([] as VenueMediaDto[])
         : forkJoin(
             mediaItems.map((item) =>
               this.media
@@ -40,11 +55,11 @@ export class CreateVenueService {
               of(
                 results.map(
                   (r, i): VenueMediaDto => ({
-                    type: mediaItems[i].type, // 3. Dynamically map type
+                    type: mediaItems[i].type,
                     publicId: r.fileId,
                     url: r.url,
                     order: i,
-                    caption: mediaItems[i].caption || undefined, // 4. Map caption
+                    caption: mediaItems[i].caption || undefined,
                   }),
                 ),
               ),
