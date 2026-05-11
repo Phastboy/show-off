@@ -23,6 +23,4 @@ export class CreateVenue {
   onMediaChanged(items: PickedMedia[]) { this.vm.pickedMedia = items; }
 
   submit() { this.vm.submit(() => this.router.navigate(['/venues'])); }
-
-  goBack() { this.router.navigate(['/venues']); }
 }

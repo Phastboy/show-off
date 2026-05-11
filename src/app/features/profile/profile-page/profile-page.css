@@ -5,28 +5,13 @@
 }
 
 .profile-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  text-align: center;
   margin-bottom: 2rem;
 }
 
 .profile-header h1 {
   font-size: 1.25rem;
   margin: 0;
-}
-
-.back-btn {
-  background: none;
-  border: none;
-  color: #6366f1;
-  font-size: 0.875rem;
-  cursor: pointer;
-  padding: 0;
-}
-
-.back-btn:hover {
-  text-decoration: underline;
 }
 
 .state-msg {
@@ -93,7 +78,7 @@ input:focus {
   margin: 0;
 }
 
-button[type="submit"] {
+button[type='submit'] {
   padding: 0.75rem;
   background: #6366f1;
   color: #fff;
@@ -105,11 +90,11 @@ button[type="submit"] {
   transition: opacity 0.15s;
 }
 
-button[type="submit"]:disabled {
+button[type='submit']:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-button[type="submit"]:not(:disabled):hover {
+button[type='submit']:not(:disabled):hover {
   opacity: 0.9;
 }
