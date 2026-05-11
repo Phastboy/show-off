@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CreateVenueService } from '../../../core/services/create-venue.service';
 import type { PickedMedia } from '../../../shared/components/media-picker/media-picker';
@@ -6,8 +6,6 @@ import type { PickedMedia } from '../../../shared/components/media-picker/media-
 @Injectable()
 export class CreateVenueFormService {
   private readonly fb = inject(FormBuilder);
-
-  // Inject the orchestrator instead of VenueService/MediaService
   private readonly createVenueOrchestrator = inject(CreateVenueService);
 
   readonly submitting = signal(false);
@@ -15,8 +13,21 @@ export class CreateVenueFormService {
   readonly amenities = signal<string[]>([]);
   readonly amenityControl = new FormControl('', { nonNullable: true });
 
-  // Make media state reactive
   readonly pickedMedia = signal<PickedMedia[]>([]);
+
+  // Progress State
+  readonly uploadedCount = this.createVenueOrchestrator.uploadedCount;
+  readonly totalUploads = this.createVenueOrchestrator.totalCount;
+
+  readonly isUploading = computed(
+    () =>
+      this.submitting() && this.totalUploads() > 0 && this.uploadedCount() < this.totalUploads(),
+  );
+
+  readonly uploadPercentage = computed(() => {
+    if (this.totalUploads() === 0) return 0;
+    return Math.round((this.uploadedCount() / this.totalUploads()) * 100);
+  });
 
   readonly form = this.fb.nonNullable.group({
     name: ['', Validators.required],
@@ -46,7 +57,6 @@ export class CreateVenueFormService {
       this.form.markAllAsTouched();
       return;
     }
-
     this.submitting.set(true);
     this.serverError.set(null);
 
@@ -64,14 +74,12 @@ export class CreateVenueFormService {
       amenities: this.amenities().length ? this.amenities() : undefined,
     };
 
-    // Map UI model to Core upload data
     const mediaUploadData = this.pickedMedia().map((m) => ({
       file: m.asset.file,
       type: m.asset.type,
       caption: m.caption,
     }));
 
-    // Delegate to the orchestrator
     this.createVenueOrchestrator.createWithMedia(payload, mediaUploadData).subscribe({
       next: onSuccess,
       error: () => {

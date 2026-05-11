@@ -87,12 +87,33 @@
 
     <section class="cv-section">
       <h2>Photos</h2>
-      <app-media-picker accept="image/*" (changed)="onMediaChanged($event)" />
+      <app-media-picker accept="image/*,video/*" (changed)="onMediaChanged($event)" />
     </section>
 
+    @if (vm.submitting() && vm.totalUploads() > 0) {
+      <div class="upload-progress-container">
+        <div class="progress-header">
+          <span class="progress-status">
+            {{ vm.uploadedCount() === vm.totalUploads() ? 'Finishing up...' : 'Uploading media...' }}
+          </span>
+          <span class="progress-count">{{ vm.uploadedCount() }} / {{ vm.totalUploads() }}</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" [style.width.%]="vm.uploadPercentage()"></div>
+        </div>
+      </div>
+    }
+
     @if (vm.serverError()) { <p class="server-error">{{ vm.serverError() }}</p> }
+
     <button type="submit" class="submit-btn" [disabled]="vm.submitting()">
-      {{ vm.submitting() ? 'Submitting…' : 'List Venue' }}
+      @if (vm.isUploading()) {
+        Uploading ({{ vm.uploadPercentage() }}%)...
+      } @else if (vm.submitting()) {
+        Saving Venue...
+      } @else {
+        List Venue
+      }
     </button>
 
   </form>
