@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MediaAsset, getMediaType } from '../../../core/models/media-asset.model';
 
 export interface PickedMedia {
@@ -10,7 +11,7 @@ export interface PickedMedia {
 @Component({
   selector: 'app-media-picker',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './media-picker.html',
   styleUrl: './media-picker.css',
 })
@@ -23,8 +24,9 @@ export class MediaPicker {
   readonly items = signal<PickedMedia[]>([]);
 
   onFilesSelected(event: Event) {
-    const files = Array.from((event.target as HTMLInputElement).files ?? []);
-    (event.target as HTMLInputElement).value = '';
+    const input = event.target as HTMLInputElement;
+    const files = Array.from(input.files ?? []);
+    input.value = '';
 
     files.forEach((file) => {
       const reader = new FileReader();
@@ -39,8 +41,7 @@ export class MediaPicker {
     });
   }
 
-  updateCaption(index: number, caption: string) {
-    this.items.update((l) => l.map((m, i) => (i === index ? { ...m, caption } : m)));
+  onCaptionChange(index: number) {
     this.changed.emit(this.items());
   }
 

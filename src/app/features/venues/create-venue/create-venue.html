@@ -70,8 +70,7 @@
     <section class="cv-section">
       <h2>Amenities</h2>
       <div class="amenity-input-row">
-        <input type="text" [value]="vm.amenityInput()"
-          (input)="vm.amenityInput.set($any($event.target).value)"
+        <input type="text" [formControl]="vm.amenityControl"
           (keydown)="onAmenityKeydown($event)" placeholder="e.g. Parking, AC" />
         <button type="button" class="add-btn" (click)="vm.addAmenity()">Add</button>
       </div>

@@ -13,7 +13,8 @@
           <span class="type-badge">{{ item.asset.type }}</span>
           <button type="button" class="remove-btn" (click)="remove($index)">×</button>
           <input type="text" class="caption-input" placeholder="Caption (optional)"
-            [value]="item.caption" (input)="updateCaption($index, $any($event.target).value)" />
+            [(ngModel)]="item.caption"
+            (ngModelChange)="onCaptionChange($index)" />
         </div>
       }
     </div>

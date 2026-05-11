@@ -53,9 +53,9 @@ export class VenueList {
     this.venueService
       .getVenues({ ...this.activeFilters, page: this.page(), limit: 20 })
       .subscribe({
-        next: (res: any) => {
-          this.venues.set(res.data ?? res);
-          this.total.set(res.total ?? res.length ?? 0);
+        next: (res) => {
+          this.venues.set(res.data);
+          this.total.set(res.total);
           this.loading.set(false);
         },
         error: () => {
