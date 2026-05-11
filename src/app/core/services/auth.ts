@@ -10,15 +10,16 @@ import type {
   RegisterDto,
   RegisterResponse,
 } from '../models/api.models';
+import { API_BASE_URL } from '../constants/api';
 
 const TOKEN_KEY = 'cp_token';
-const BASE = 'https://distinguished-dolorita-campusuniverse-5925f056.koyeb.app/api';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
   private readonly cookies = inject(CookieService);
+  private readonly baseUrl = inject(API_BASE_URL);
 
   private readonly _token = signal<string | null>(this.cookies.get(TOKEN_KEY));
 
@@ -26,17 +27,17 @@ export class AuthService {
   readonly isAuthenticated = computed(() => this._token() !== null);
 
   register(dto: RegisterDto) {
-    return this.http.post<RegisterResponse>(`${BASE}/accounts/register`, dto);
+    return this.http.post<RegisterResponse>(`${this.baseUrl}/accounts/register`, dto);
   }
 
   login(dto: LoginPasswordDto) {
     return this.http
-      .post<ReceiptTokenResponse>(`${BASE}/auth/login`, dto)
+      .post<ReceiptTokenResponse>(`${this.baseUrl}/auth/login`, dto)
       .pipe(tap((res) => this.persist(res.token)));
   }
 
   me() {
-    return this.http.get<ProfileResponse>(`${BASE}/me`);
+    return this.http.get<ProfileResponse>(`${this.baseUrl}/me`);
   }
 
   logout() {

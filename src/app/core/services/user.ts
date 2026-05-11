@@ -2,20 +2,20 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import type { UpdateUserProfileDto, UserProfile } from '../models/api.models';
 import { MediaService } from './media.service';
-
-const BASE = 'https://distinguished-dolorita-campusuniverse-5925f056.koyeb.app/api';
+import { API_BASE_URL } from '../constants/api';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private readonly http = inject(HttpClient);
   private readonly media = inject(MediaService);
+  private readonly baseUrl = inject(API_BASE_URL);
 
   getProfile() {
-    return this.http.get<UserProfile>(`${BASE}/users/me`);
+    return this.http.get<UserProfile>(`${this.baseUrl}/users/me`);
   }
 
   updateProfile(dto: UpdateUserProfileDto) {
-    return this.http.patch<UserProfile>(`${BASE}/users/me`, dto);
+    return this.http.patch<UserProfile>(`${this.baseUrl}/users/me`, dto);
   }
 
   uploadAvatar(file: File) {

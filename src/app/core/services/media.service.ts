@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-
-const BASE = 'https://distinguished-dolorita-campusuniverse-5925f056.koyeb.app/api';
+import { API_BASE_URL } from '../constants/api';
 
 /** Allowed folder scopes for the media upload endpoint. */
 export type MediaFolderType = 'AVATAR' | 'VENUE_GALLERY';
@@ -20,6 +19,7 @@ export interface UploadedMedia {
 @Injectable({ providedIn: 'root' })
 export class MediaService {
   private readonly http = inject(HttpClient);
+  private readonly baseUrl = inject(API_BASE_URL);
 
   /**
    * Uploads a single file to the given folder bucket.
@@ -29,6 +29,6 @@ export class MediaService {
     const form = new FormData();
     form.append('file', file);
     form.append('folderType', folderType);
-    return this.http.post<UploadedMedia>(`${BASE}/media/upload`, form);
+    return this.http.post<UploadedMedia>(`${this.baseUrl}/media/upload`, form);
   }
 }
