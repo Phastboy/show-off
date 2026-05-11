@@ -6,12 +6,10 @@ import {
   output,
   signal,
 } from '@angular/core';
+import type { UploadedMedia } from '../../../core/services/media.service';
 import { UserService } from '../../../core/services/user';
 
-export interface AvatarUploadResult {
-  url: string;
-  id: string;
-}
+export type AvatarUploadResult = UploadedMedia;
 
 @Component({
   selector: 'app-avatar-upload',
@@ -44,7 +42,6 @@ export class AvatarUpload {
       return;
     }
 
-    // local preview
     const reader = new FileReader();
     reader.onload = (e) => this.preview.set(e.target?.result as string);
     reader.readAsDataURL(file);

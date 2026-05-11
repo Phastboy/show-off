@@ -9,7 +9,7 @@ export type MediaFolderType = 'AVATAR' | 'VENUE_GALLERY';
 /** Shape returned by POST /api/media/upload. */
 export interface UploadedMedia {
   url: string;
-  id: string;
+  fileId: string;
 }
 
 /**

@@ -1,10 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services/user';
-import {
-  AvatarUpload,
-  AvatarUploadResult,
-} from '../../../shared/components/avatar-upload/avatar-upload';
+import { AvatarUpload, AvatarUploadResult } from '../../../shared/components/avatar-upload/avatar-upload';
 import type { UserProfile } from '../../../core/models/api.models';
 
 @Component({
@@ -24,8 +21,7 @@ export class ProfilePage {
   readonly successMsg = signal<string | null>(null);
   readonly profile = signal<UserProfile | null>(null);
 
-  // pending avatar from upload — applied on save
-  private pendingAvatar: { url: string; id: string } | null = null;
+  private pendingAvatar: AvatarUploadResult | null = null;
 
   readonly form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
@@ -36,10 +32,7 @@ export class ProfilePage {
     this.userService.getProfile().subscribe({
       next: (p) => {
         this.profile.set(p);
-        this.form.patchValue({
-          name: p.name ?? '',
-          phoneNumber: p.phoneNumber ?? '',
-        });
+        this.form.patchValue({ name: p.name ?? '', phoneNumber: p.phoneNumber ?? '' });
         this.loading.set(false);
       },
       error: () => {
@@ -70,7 +63,7 @@ export class ProfilePage {
     const dto = {
       ...this.form.getRawValue(),
       ...(this.pendingAvatar
-        ? { avatarUrl: this.pendingAvatar.url, avatarId: this.pendingAvatar.id }
+        ? { avatarUrl: this.pendingAvatar.url, avatarId: this.pendingAvatar.fileId }
         : {}),
     };
 

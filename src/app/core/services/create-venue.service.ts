@@ -41,24 +41,27 @@ export class CreateVenueService {
         ? of([] as VenueMediaDto[])
         : forkJoin(
             files.map((file) =>
-              this.media.uploadMedia(file, 'VENUE_GALLERY').pipe(
-                tap(() => this.uploadedCount.update((n) => n + 1)),
-              ),
+              this.media
+                .uploadMedia(file, 'VENUE_GALLERY')
+                .pipe(tap(() => this.uploadedCount.update((n) => n + 1))),
             ),
           ).pipe(
             switchMap((results) =>
               of(
                 results.map(
-                  (r, i): VenueMediaDto => ({ type: 'IMAGE', url: r.url, order: i }),
+                  (r, i): VenueMediaDto => ({
+                    type: 'IMAGE',
+                    publicId: r.fileId,
+                    url: r.url,
+                    order: i,
+                  }),
                 ),
               ),
             ),
           );
 
     return upload$.pipe(
-      switchMap((mediaDtos) =>
-        this.venue.createVenue({ ...payload, media: mediaDtos }),
-      ),
+      switchMap((mediaDtos) => this.venue.createVenue({ ...payload, media: mediaDtos })),
     );
   }
 }

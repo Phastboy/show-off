@@ -47,12 +47,16 @@ export interface UpdateUserProfileDto {
 
 // ── Venue ────────────────────────────────────────────────────────────────────
 
-export interface VenueMedia {
+export interface VenueMediaDto {
   type: 'IMAGE' | 'VIDEO';
+  publicId: string;
   url: string;
   order: number;
   caption?: string;
 }
+
+/** Read shape is identical to the write DTO. */
+export type VenueMedia = VenueMediaDto;
 
 export interface Perk {
   title: string;
@@ -73,13 +77,6 @@ export interface Venue {
   amenities?: string[];
   media?: VenueMedia[];
   perks?: Perk[];
-}
-
-export interface VenueMediaDto {
-  type: 'IMAGE' | 'VIDEO';
-  url: string;
-  order: number;
-  caption?: string;
 }
 
 export interface PerkDto {

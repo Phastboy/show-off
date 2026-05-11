@@ -11,11 +11,6 @@ export interface VenueListResponse {
   limit: number;
 }
 
-export interface MediaUploadResponse {
-  url: string;
-  id: string;
-}
-
 @Injectable({ providedIn: 'root' })
 export class VenueService {
   private readonly http = inject(HttpClient);
@@ -36,12 +31,5 @@ export class VenueService {
 
   createVenue(dto: CreateVenueDto) {
     return this.http.post<Venue>(`${BASE}/venues`, dto);
-  }
-
-  uploadMedia(file: File) {
-    const form = new FormData();
-    form.append('file', file);
-    form.append('folderType', 'VENUE_GALLERY');
-    return this.http.post<MediaUploadResponse>(`${BASE}/media/upload`, form);
   }
 }
