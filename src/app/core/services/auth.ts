@@ -1,8 +1,8 @@
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { isPlatformBrowser } from '@angular/common';
-import { Injectable, PLATFORM_ID, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
+import { CookieService } from './cookie.service';
 import type {
   LoginPasswordDto,
   ProfileResponse,
@@ -18,19 +18,12 @@ const BASE = 'https://distinguished-dolorita-campusuniverse-5925f056.koyeb.app/a
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
-  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  private readonly cookies = inject(CookieService);
 
-  // Signal is set in constructor so isPlatformBrowser is available
-  private readonly _token = signal<string | null>(null);
+  private readonly _token = signal<string | null>(this.cookies.get(TOKEN_KEY));
 
   readonly token = this._token.asReadonly();
   readonly isAuthenticated = computed(() => this._token() !== null);
-
-  constructor() {
-    if (this.isBrowser) {
-      this._token.set(localStorage.getItem(TOKEN_KEY));
-    }
-  }
 
   register(dto: RegisterDto) {
     return this.http.post<RegisterResponse>(`${BASE}/accounts/register`, dto);
@@ -52,12 +45,12 @@ export class AuthService {
   }
 
   private persist(token: string) {
-    if (this.isBrowser) localStorage.setItem(TOKEN_KEY, token);
+    this.cookies.set(TOKEN_KEY, token);
     this._token.set(token);
   }
 
   private clear() {
-    if (this.isBrowser) localStorage.removeItem(TOKEN_KEY);
+    this.cookies.delete(TOKEN_KEY);
     this._token.set(null);
   }
 }
