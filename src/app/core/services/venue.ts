@@ -1,8 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import type { CreateVenueDto, Venue, VenueFilters } from '../models/api.models';
-
-const BASE = 'https://distinguished-dolorita-campusuniverse-5925f056.koyeb.app/api';
+import { API_BASE_URL } from '../constants/api';
 
 export interface VenueListResponse {
   data: Venue[];
@@ -14,6 +13,7 @@ export interface VenueListResponse {
 @Injectable({ providedIn: 'root' })
 export class VenueService {
   private readonly http = inject(HttpClient);
+  private readonly baseUrl = inject(API_BASE_URL);
 
   getVenues(filters: VenueFilters = {}) {
     let params = new HttpParams();
@@ -26,10 +26,10 @@ export class VenueService {
     if (filters.page) params = params.set('page', filters.page);
     if (filters.limit) params = params.set('limit', filters.limit);
 
-    return this.http.get<VenueListResponse>(`${BASE}/venues`, { params });
+    return this.http.get<VenueListResponse>(`${this.baseUrl}/venues`, { params });
   }
 
   createVenue(dto: CreateVenueDto) {
-    return this.http.post<Venue>(`${BASE}/venues`, dto);
+    return this.http.post<Venue>(`${this.baseUrl}/venues`, dto);
   }
 }
