@@ -10,17 +10,25 @@ import { MediaPicker, PickedMedia } from '../../../shared/components/media-picke
   imports: [ReactiveFormsModule, MediaPicker],
   providers: [CreateVenueFormService],
   templateUrl: './create-venue.html',
-  styleUrls: ['./create-venue.css', './create-venue-widgets.css'],
+  styleUrls: ['./create-venue.css'],
 })
 export class CreateVenue {
   private readonly router = inject(Router);
   readonly vm = inject(CreateVenueFormService);
 
   onAmenityKeydown(e: KeyboardEvent) {
-    if (e.key === 'Enter') { e.preventDefault(); this.vm.addAmenity(); }
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.vm.addAmenity();
+    }
   }
 
-  onMediaChanged(items: PickedMedia[]) { this.vm.pickedMedia = items; }
+  // Update the signal
+  onMediaChanged(items: PickedMedia[]) {
+    this.vm.pickedMedia.set(items);
+  }
 
-  submit() { this.vm.submit(() => this.router.navigate(['/venues'])); }
+  submit() {
+    this.vm.submit(() => this.router.navigate(['/venues']));
+  }
 }
