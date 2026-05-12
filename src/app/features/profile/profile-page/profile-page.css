@@ -146,6 +146,73 @@
   font-size: 0.9rem;
 }
 
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  color: #6366f1;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.inline-input {
+  width: 100%;
+  padding: 0.5rem 0;
+  border: none;
+  border-bottom: 2px solid #6366f1;
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  background: transparent;
+}
+
+.name-input {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  max-width: 300px;
+}
+
+.edit-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: #6366f1;
+  color: white;
+}
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* ── Mobile Overrides ────────────────────────────────────── */
 
 @media (max-width: 640px) {

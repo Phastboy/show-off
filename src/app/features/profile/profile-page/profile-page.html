@@ -5,30 +5,32 @@
 
     <header class="profile-header">
       <div class="avatar-wrapper">
-        @if (u.avatarUrl) {
-          <img [src]="u.avatarUrl" [alt]="u.name" class="avatar-img" />
-        } @else {
-          <div class="avatar-placeholder">
-            <svg lucideUser class="icon-lg"></svg>
-          </div>
-        }
-        <button class="edit-avatar-btn" aria-label="Change photo">
-          <svg lucideCamera class="icon-xs"></svg>
-        </button>
+        <img [src]="u.avatarUrl || 'assets/default-avatar.png'" class="avatar-img" />
+        <button class="edit-avatar-btn"><svg lucideCamera class="icon-xs"></svg></button>
       </div>
 
-      <h1 class="profile-name">{{ u.name || 'Anonymous User' }}</h1>
-      <p class="profile-joined">Member since 2026</p>
+      @if (!isEditing()) {
+        <h1 class="profile-name">{{ u.name || 'Anonymous User' }}</h1>
+      } @else {
+        <div class="edit-name-wrapper">
+          <input [formControl]="profileForm.controls.name" class="inline-input name-input" placeholder="Your Name" />
+        </div>
+      }
     </header>
 
     <div class="profile-grid">
       <section class="info-card">
-        <h2>Contact Information</h2>
+        <div class="card-header">
+          <h2>Contact Information</h2>
+          @if (!isEditing()) {
+            <button class="text-btn" (click)="startEditing()">Edit</button>
+          }
+        </div>
 
         <div class="info-row">
           <svg lucideMail class="icon-sm"></svg>
           <div class="info-content">
-            <label>Email Address</label>
+            <label>Email</label>
             <span>Linked to account</span>
           </div>
         </div>
@@ -37,17 +39,26 @@
           <svg lucidePhone class="icon-sm"></svg>
           <div class="info-content">
             <label>Phone Number</label>
-            <span>{{ u.phoneNumber || 'Not provided' }}</span>
+            @if (!isEditing()) {
+              <span>{{ u.phoneNumber || 'Not provided' }}</span>
+            } @else {
+              <input [formControl]="profileForm.controls.phoneNumber" class="inline-input" placeholder="+234..." />
+            }
           </div>
         </div>
       </section>
 
-      <section class="info-card">
-        <h2>Account Settings</h2>
-        <p class="text-muted">Manage your security and preferences.</p>
-        <button class="btn-outline">Edit Profile</button>
-      </section>
+      @if (isEditing()) {
+        <div class="edit-actions">
+          <button class="btn btn-secondary" (click)="cancel()" [disabled]="vm.updating()">
+            <svg lucideX class="icon-sm"></svg> Cancel
+          </button>
+          <button class="btn btn-primary" (click)="save()" [disabled]="vm.updating() || profileForm.invalid">
+            <svg lucideSave class="icon-sm"></svg>
+            {{ vm.updating() ? 'Saving...' : 'Save Changes' }}
+          </button>
+        </div>
+      }
     </div>
-
   }
 </div>

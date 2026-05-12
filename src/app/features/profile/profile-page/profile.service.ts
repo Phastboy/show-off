@@ -2,6 +2,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_BASE_URL } from '../../../core/constants/api';
 import type { UserProfile, UpdateUserProfileDto } from '../../../core/models/api.models';
+import { catchError, tap } from 'rxjs';
 
 @Injectable()
 export class ProfileService {
@@ -14,7 +15,6 @@ export class ProfileService {
 
   loadProfile() {
     this.loading.set(true);
-    // Adjust endpoint to match your backend (e.g., /auth/profile or /users/me)
     this.http.get<UserProfile>(`${this.baseUrl}/users/me`).subscribe({
       next: (profile) => {
         this.user.set(profile);
@@ -26,12 +26,16 @@ export class ProfileService {
 
   updateProfile(dto: UpdateUserProfileDto) {
     this.updating.set(true);
-    return this.http.patch<UserProfile>(`${this.baseUrl}/users/me`, dto).subscribe({
-      next: (updated) => {
+    // Note: We return the observable so the component can react to success (e.g., close the form)
+    return this.http.patch<UserProfile>(`${this.baseUrl}/users/me`, dto).pipe(
+      tap((updated) => {
         this.user.set(updated);
         this.updating.set(false);
-      },
-      error: () => this.updating.set(false),
-    });
+      }),
+      catchError((err) => {
+        this.updating.set(false);
+        throw err;
+      }),
+    );
   }
 }
