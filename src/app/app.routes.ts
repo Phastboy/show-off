@@ -4,8 +4,7 @@ import { authGuard } from './core/guards/auth-guard';
 export const routes: Routes = [
   {
     path: 'auth',
-    loadComponent: () =>
-      import('./shared/layouts/auth-shell/auth-shell').then((m) => m.AuthShell),
+    loadComponent: () => import('./shared/layouts/auth-shell/auth-shell').then((m) => m.AuthShell),
     children: [
       {
         path: 'login',
@@ -21,9 +20,13 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [authGuard],
-    loadComponent: () =>
-      import('./shared/layouts/app-shell/app-shell').then((m) => m.AppShell),
+    loadComponent: () => import('./shared/layouts/app-shell/app-shell').then((m) => m.AppShell),
     children: [
+      {
+        path: 'venues/:id',
+        loadComponent: () =>
+          import('./features/venues/venue-detail/venue-detail').then((m) => m.VenueDetail),
+      },
       {
         path: 'venues',
         loadComponent: () =>

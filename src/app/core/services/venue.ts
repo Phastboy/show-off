@@ -1,6 +1,7 @@
+import { map } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import type { CreateVenueDto, Venue, VenueFilters } from '../models/api.models';
+import type { Amenity, CreateVenueDto, Venue, VenueFilters } from '../models/api.models';
 import { API_BASE_URL } from '../constants/api';
 
 export interface VenueListResponse {
@@ -31,5 +32,15 @@ export class VenueService {
 
   createVenue(dto: CreateVenueDto) {
     return this.http.post<Venue>(`${this.baseUrl}/venues`, dto);
+  }
+
+  getVenue(id: string) {
+    return this.http.get<Venue>(`${this.baseUrl}/venues/${id}`).pipe(
+      map((venue) => ({
+        ...venue,
+        amenities:
+          venue.amenities?.map((a: string | Amenity) => (typeof a === 'string' ? a : a.name)) || [],
+      })),
+    );
   }
 }
