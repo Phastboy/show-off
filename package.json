@@ -1,16 +1,16 @@
 {
   "name": "show-off",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:show-off": "node dist/show-off/server/server.mjs"
+    "serve:ssr:show-off": "node dist/show-off/server/server.mjs",
+    "start:prod": "pnpm serve:ssr:show-off"
   },
-  "private": true,
-  "packageManager": "pnpm@11.0.8",
   "dependencies": {
     "@angular/common": "^21.2.0",
     "@angular/compiler": "^21.2.0",
@@ -39,5 +39,6 @@
     "tailwindcss": "^4.1.12",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
-  }
+  },
+  "packageManager": "pnpm@11.0.8"
 }
