@@ -1,44 +1,53 @@
-<div class="profile-page">
-  <header class="profile-header">
-    <h1>My Profile</h1>
-  </header>
+<div class="profile-container">
+  @if (vm.loading()) {
+    <div class="loading-state">Loading profile...</div>
+  } @else if (vm.user(); as u) {
 
-  @if (loading()) {
-    <p class="state-msg">Loading…</p>
-  } @else {
-    <div class="profile-body">
-      <app-avatar-upload
-        [currentUrl]="profile()?.avatarUrl ?? null"
-        (uploaded)="onAvatarUploaded($event)"
-        (error)="onAvatarError($event)"
-      />
-
-      <form [formGroup]="form" (ngSubmit)="save()">
-        <div class="field">
-          <label for="name">Full name</label>
-          <input id="name" type="text" formControlName="name" placeholder="Hammed Anuoluwapo" />
-          @if (form.controls.name.invalid && form.controls.name.touched) {
-            <span class="error">Name is required (min 2 characters).</span>
-          }
-        </div>
-
-        <div class="field">
-          <label for="phone">Phone number</label>
-          <input id="phone" type="tel" formControlName="phoneNumber" placeholder="+2348012345678" />
-        </div>
-
-        @if (serverError()) {
-          <p class="server-error">{{ serverError() }}</p>
+    <header class="profile-header">
+      <div class="avatar-wrapper">
+        @if (u.avatarUrl) {
+          <img [src]="u.avatarUrl" [alt]="u.name" class="avatar-img" />
+        } @else {
+          <div class="avatar-placeholder">
+            <svg lucideUser class="icon-lg"></svg>
+          </div>
         }
-
-        @if (successMsg()) {
-          <p class="success-msg">{{ successMsg() }}</p>
-        }
-
-        <button type="submit" [disabled]="saving()">
-          {{ saving() ? 'Saving…' : 'Save changes' }}
+        <button class="edit-avatar-btn" aria-label="Change photo">
+          <svg lucideCamera class="icon-xs"></svg>
         </button>
-      </form>
+      </div>
+
+      <h1 class="profile-name">{{ u.name || 'Anonymous User' }}</h1>
+      <p class="profile-joined">Member since 2026</p>
+    </header>
+
+    <div class="profile-grid">
+      <section class="info-card">
+        <h2>Contact Information</h2>
+
+        <div class="info-row">
+          <svg lucideMail class="icon-sm"></svg>
+          <div class="info-content">
+            <label>Email Address</label>
+            <span>Linked to account</span>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <svg lucidePhone class="icon-sm"></svg>
+          <div class="info-content">
+            <label>Phone Number</label>
+            <span>{{ u.phoneNumber || 'Not provided' }}</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="info-card">
+        <h2>Account Settings</h2>
+        <p class="text-muted">Manage your security and preferences.</p>
+        <button class="btn-outline">Edit Profile</button>
+      </section>
     </div>
+
   }
 </div>
