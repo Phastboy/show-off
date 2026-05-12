@@ -22,8 +22,8 @@
 
     @if (venue().amenities?.length) {
       <div class="venue-amenities">
-        @for (amenity of venue().amenities!.slice(0, 4); track amenity) {
-          <span class="amenity-tag">{{ amenity }}</span>
+        @for (amenity of venue().amenities!.slice(0, 4); track $index) {
+          <span class="amenity-tag">{{ getAmenityName(amenity) }}</span>
         }
         @if (venue().amenities!.length > 4) {
           <span class="amenity-tag more">+{{ venue().amenities!.length - 4 }}</span>

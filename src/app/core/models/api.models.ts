@@ -63,6 +63,11 @@ export interface Perk {
   description?: string;
 }
 
+export interface Amenity {
+  id: string;
+  name: string;
+}
+
 export interface Venue {
   id: string;
   name: string;
@@ -74,7 +79,7 @@ export interface Venue {
   priceRangeMax?: number;
   contactPhone?: string;
   contactWhatsapp?: string;
-  amenities?: string[];
+  amenities?: (string | Amenity)[];
   media?: VenueMedia[];
   perks?: Perk[];
 }

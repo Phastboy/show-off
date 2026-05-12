@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import type { Venue } from '../../../core/models/api.models';
+import type { Venue, Amenity } from '../../../core/models/api.models';
 
 @Component({
   selector: 'app-venue-card',
@@ -10,6 +10,10 @@ import type { Venue } from '../../../core/models/api.models';
 })
 export class VenueCard {
   venue = input.required<Venue>();
+
+  getAmenityName(a: string | Amenity): string {
+    return typeof a === 'string' ? a : a.name;
+  }
 
   get mainImage() {
     return this.venue().media?.find((m) => m.order === 0 && m.type === 'IMAGE')?.url ?? null;
