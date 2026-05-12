@@ -4,6 +4,7 @@
   flex-direction: column;
   background: #f9fafb;
 }
+
 .sub-header {
   position: sticky;
   top: 0;
@@ -12,7 +13,12 @@
   backdrop-filter: blur(8px);
   padding: 1rem 1.5rem;
   border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  box-sizing: border-box;
 }
+
 .back-btn {
   display: inline-flex;
   align-items: center;
@@ -25,39 +31,26 @@
   cursor: pointer;
   padding: 0;
   transition: color 0.2s;
+  flex-shrink: 0;
 }
+
 .back-btn:hover {
   color: #111827;
 }
+
 .icon-sm {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
 }
 
-.sub-main {
-  flex: 1;
-  width: 100%;
-  max-width: 800px; /* Constrain all sub-pages automatically */
-  margin: 0 auto;
-  padding: 2rem 1.5rem 4rem;
-  box-sizing: border-box;
-}
-
 .header-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0.5rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Space out the 3 pieces */
-  height: 48px;
-}
-
-.header-title {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.header-title {
   font-size: 1rem;
   font-weight: 700;
   color: #111827;
@@ -65,8 +58,13 @@
   white-space: nowrap;
 }
 
-.header-spacer {
-  width: 60px; /* Roughly the same width as the back button for centering balance */
+.sub-main {
+  flex: 1;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  box-sizing: border-box;
 }
 
 @media (max-width: 640px) {
