@@ -20,29 +20,45 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [authGuard],
-    loadComponent: () => import('./shared/layouts/app-shell/app-shell').then((m) => m.AppShell),
     children: [
+      // ── MAIN LAYOUT (Navbar + Bottom Tabs) ─────────────
       {
-        path: 'venues/:id',
-        loadComponent: () =>
-          import('./features/venues/venue-detail/venue-detail').then((m) => m.VenueDetail),
+        path: '',
+        loadComponent: () => import('./shared/layouts/app-shell/app-shell').then((m) => m.AppShell),
+        children: [
+          {
+            path: 'venues',
+            loadComponent: () =>
+              import('./features/venues/venue-list/venue-list').then((m) => m.VenueList),
+          },
+          {
+            path: 'profile',
+            loadComponent: () =>
+              import('./features/profile/profile-page/profile-page').then((m) => m.ProfilePage),
+          },
+          { path: '', redirectTo: 'venues', pathMatch: 'full' },
+        ],
       },
+      // ── SUB-PAGE LAYOUT (Back Button + Centered Column) ─
       {
-        path: 'venues',
+        path: '',
         loadComponent: () =>
-          import('./features/venues/venue-list/venue-list').then((m) => m.VenueList),
+          import('./shared/layouts/sub-page-shell/sub-page-shell').then((m) => m.SubPageShell),
+        children: [
+          {
+            path: 'venues/create',
+            data: { title: 'Create Venue' }, // Logic-driven UI
+            loadComponent: () =>
+              import('./features/venues/create-venue/create-venue').then((m) => m.CreateVenue),
+          },
+          {
+            path: 'venues/:id',
+            data: { title: 'Venue Details' },
+            loadComponent: () =>
+              import('./features/venues/venue-detail/venue-detail').then((m) => m.VenueDetail),
+          },
+        ],
       },
-      {
-        path: 'venues/create',
-        loadComponent: () =>
-          import('./features/venues/create-venue/create-venue').then((m) => m.CreateVenue),
-      },
-      {
-        path: 'profile',
-        loadComponent: () =>
-          import('./features/profile/profile-page/profile-page').then((m) => m.ProfilePage),
-      },
-      { path: '', redirectTo: 'venues', pathMatch: 'full' },
     ],
   },
   { path: '**', redirectTo: 'venues' },

@@ -1,0 +1,20 @@
+<div class="sub-shell">
+  <header class="sub-header">
+    <div class="header-container">
+      <button (click)="goBack()" class="back-btn" aria-label="Go back">
+        <svg lucideArrowLeft class="icon-sm"></svg>
+        <span>Back</span>
+      </button>
+
+      @if (pageTitle()) {
+        <h1 class="header-title">{{ pageTitle() }}</h1>
+      }
+
+      <div class="header-spacer"></div>
+    </div>
+  </header>
+
+  <main class="sub-main">
+    <router-outlet />
+  </main>
+</div>
