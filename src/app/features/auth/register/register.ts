@@ -39,14 +39,12 @@ export class Register {
     this.auth.register({ ...value, name: this.nameControl.value }).subscribe({
       next: () => {
         this.auth.login(value).subscribe({
-          next: () => this.router.navigate(['/home']),
+          next: () => this.router.navigate(['/profile']),
           error: () => this.router.navigate(['/auth/login']),
         });
       },
       error: (err) => {
-        this.error.set(
-          err.status === 409 ? 'Email already registered.' : 'Something went wrong.',
-        );
+        this.error.set(err.status === 409 ? 'Email already registered.' : 'Something went wrong.');
         this.loading.set(false);
       },
     });

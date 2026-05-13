@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { API_BASE_URL } from '../constants/api';
 
 /** Allowed folder scopes for the media upload endpoint. */
-export type MediaFolderType = 'AVATAR' | 'VENUE_GALLERY';
+export type MediaFolderType = 'AVATAR' | 'LISTING_GALLERY';
 
 /** Shape returned by POST /api/media/upload. */
 export interface UploadedMedia {

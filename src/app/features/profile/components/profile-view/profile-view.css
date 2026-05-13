@@ -1,0 +1,81 @@
+.profile-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ── Avatar ── */
+
+.avatar-wrap {
+  width: 100px;
+  height: 100px;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: block;
+}
+
+.avatar--placeholder {
+  background: #e0e7ff;
+  color: #6366f1;
+  font-size: 2.25rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Identity ── */
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  text-align: center;
+}
+
+.name {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.role {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: capitalize;
+  letter-spacing: 0.04em;
+}
+
+/* ── Edit button ── */
+
+.edit-btn {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 20px;
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+
+.edit-btn:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+  background: #eef2ff;
+}
