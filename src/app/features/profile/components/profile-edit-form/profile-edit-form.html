@@ -1,0 +1,57 @@
+<div class="edit-form">
+  <!-- ── Avatar picker ── -->
+  <div class="avatar-section">
+    <label class="avatar-wrap" [class.has-preview]="avatarPreview()">
+      @if (displayAvatar) {
+        <img class="avatar" [src]="displayAvatar" [alt]="user().name" />
+      } @else {
+        <div class="avatar avatar--placeholder">
+          {{ user().name.charAt(0).toUpperCase() }}
+        </div>
+      }
+      <div class="avatar-overlay">
+        <span class="overlay-label">Change</span>
+      </div>
+      <input
+        type="file"
+        accept="image/*"
+        [disabled]="saving()"
+        (change)="onAvatarSelected($event)"
+        hidden
+      />
+    </label>
+    @if (avatarPreview()) {
+      <span class="avatar-hint">New photo selected</span>
+    }
+  </div>
+
+  <!-- ── Name field ── -->
+  <div class="field" [formGroup]="form">
+    <label for="edit-name">Name</label>
+    <input
+      id="edit-name"
+      type="text"
+      formControlName="name"
+      autocomplete="name"
+      placeholder="Your name"
+    />
+    @if (nameInvalid) {
+      <span class="field-error">Name must be at least 2 characters.</span>
+    }
+  </div>
+
+  <!-- ── Actions ── -->
+  <div class="actions">
+    <button class="btn btn--secondary" type="button" [disabled]="saving()" (click)="cancel()">
+      Cancel
+    </button>
+    <button
+      class="btn btn--primary"
+      type="button"
+      [disabled]="saving() || form.invalid"
+      (click)="submit()"
+    >
+      {{ saving() ? 'Saving…' : 'Save changes' }}
+    </button>
+  </div>
+</div>

@@ -1,40 +1,65 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { switchMap, tap } from 'rxjs';
 import { API_BASE_URL } from '../../../core/constants/api';
-import type { UserProfile, UpdateUserProfileDto } from '../../../core/models/api.models';
-import { catchError, tap } from 'rxjs';
+import { MediaService } from '../../../core/services/media.service';
+import { User } from '../../../core/models/user.models';
+
+export interface UpdateProfileDto {
+  name?: string;
+  avatarUrl?: string;
+  avatarId?: string;
+}
 
 @Injectable()
 export class ProfileService {
   private readonly http = inject(HttpClient);
+  private readonly media = inject(MediaService);
   private readonly baseUrl = inject(API_BASE_URL);
 
-  readonly user = signal<UserProfile | null>(null);
-  readonly loading = signal(true);
-  readonly updating = signal(false);
+  readonly user = signal<User | null>(null);
+  readonly loading = signal(false);
+  readonly saving = signal(false);
 
-  loadProfile() {
+  load() {
     this.loading.set(true);
-    this.http.get<UserProfile>(`${this.baseUrl}/users/me`).subscribe({
-      next: (profile) => {
-        this.user.set(profile);
-        this.loading.set(false);
-      },
-      error: () => this.loading.set(false),
-    });
+    return this.http.get<User>(`${this.baseUrl}/users/me`).pipe(
+      tap({
+        next: (u) => {
+          this.user.set(u);
+          this.loading.set(false);
+        },
+        error: () => this.loading.set(false),
+      }),
+    );
   }
 
-  updateProfile(dto: UpdateUserProfileDto) {
-    this.updating.set(true);
-    // Note: We return the observable so the component can react to success (e.g., close the form)
-    return this.http.patch<UserProfile>(`${this.baseUrl}/users/me`, dto).pipe(
-      tap((updated) => {
-        this.user.set(updated);
-        this.updating.set(false);
-      }),
-      catchError((err) => {
-        this.updating.set(false);
-        throw err;
+  /**
+   * If a new avatar file is provided, upload it first then patch.
+   * Otherwise patch name-only. One round-trip when no avatar change.
+   */
+  save(name: string, avatarFile: File | null) {
+    this.saving.set(true);
+
+    const patch$ = avatarFile
+      ? this.media.uploadMedia(avatarFile, 'AVATAR').pipe(
+          switchMap((uploaded) =>
+            this.http.patch<User>(`${this.baseUrl}/users/me`, {
+              name,
+              avatarUrl: uploaded.url,
+              avatarId: uploaded.fileId,
+            }),
+          ),
+        )
+      : this.http.patch<User>(`${this.baseUrl}/users/me`, { name });
+
+    return patch$.pipe(
+      tap({
+        next: (u) => {
+          this.user.set(u);
+          this.saving.set(false);
+        },
+        error: () => this.saving.set(false),
       }),
     );
   }

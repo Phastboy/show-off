@@ -22,11 +22,9 @@ export class Login {
     this.error.set(null);
 
     this.auth.login(value).subscribe({
-      next: () => this.router.navigate(['/home']),
+      next: () => this.router.navigate(['/profile']),
       error: (err) => {
-        this.error.set(
-          err.status === 401 ? 'Invalid email or password.' : 'Something went wrong.',
-        );
+        this.error.set(err.status === 401 ? 'Invalid email or password.' : 'Something went wrong.');
         this.loading.set(false);
       },
     });

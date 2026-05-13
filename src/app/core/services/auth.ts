@@ -5,11 +5,11 @@ import { tap } from 'rxjs';
 import { CookieService } from './cookie.service';
 import type {
   LoginPasswordDto,
-  ProfileResponse,
-  ReceiptTokenResponse,
   RegisterDto,
   RegisterResponse,
-} from '../models/api.models';
+  ReceiptTokenResponse,
+} from '../models/auth.models';
+import type { ProfileResponse } from '../models/user.models';
 import { API_BASE_URL } from '../constants/api';
 
 const TOKEN_KEY = 'cp_token';

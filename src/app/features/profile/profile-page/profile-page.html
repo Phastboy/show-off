@@ -1,64 +1,19 @@
-<div class="profile-container">
-  @if (vm.loading()) {
-    <div class="loading-state">Loading profile...</div>
-  } @else if (vm.user(); as u) {
-
-    <header class="profile-header">
-      <div class="avatar-wrapper">
-        <img [src]="u.avatarUrl || 'assets/default-avatar.png'" class="avatar-img" />
-        <button class="edit-avatar-btn"><svg lucideCamera class="icon-xs"></svg></button>
-      </div>
-
-      @if (!isEditing()) {
-        <h1 class="profile-name">{{ u.name || 'Anonymous User' }}</h1>
-      } @else {
-        <div class="edit-name-wrapper">
-          <input [formControl]="profileForm.controls.name" class="inline-input name-input" placeholder="Your Name" />
-        </div>
-      }
-    </header>
-
-    <div class="profile-grid">
-      <section class="info-card">
-        <div class="card-header">
-          <h2>Contact Information</h2>
-          @if (!isEditing()) {
-            <button class="text-btn" (click)="startEditing()">Edit</button>
-          }
-        </div>
-
-        <div class="info-row">
-          <svg lucideMail class="icon-sm"></svg>
-          <div class="info-content">
-            <label>Email</label>
-            <span>Linked to account</span>
-          </div>
-        </div>
-
-        <div class="info-row">
-          <svg lucidePhone class="icon-sm"></svg>
-          <div class="info-content">
-            <label>Phone Number</label>
-            @if (!isEditing()) {
-              <span>{{ u.phoneNumber || 'Not provided' }}</span>
-            } @else {
-              <input [formControl]="profileForm.controls.phoneNumber" class="inline-input" placeholder="+234..." />
-            }
-          </div>
-        </div>
-      </section>
-
-      @if (isEditing()) {
-        <div class="edit-actions">
-          <button class="btn btn-secondary" (click)="cancel()" [disabled]="vm.updating()">
-            <svg lucideX class="icon-sm"></svg> Cancel
-          </button>
-          <button class="btn btn-primary" (click)="save()" [disabled]="vm.updating() || profileForm.invalid">
-            <svg lucideSave class="icon-sm"></svg>
-            {{ vm.updating() ? 'Saving...' : 'Save Changes' }}
-          </button>
-        </div>
-      }
-    </div>
+@if (vm.loading()) {
+  <div class="state-message">Loading…</div>
+} @else if (vm.user(); as u) {
+  @if (!isEditing()) {
+    <app-profile-view
+      [user]="u"
+      (editRequested)="onEditRequested()"
+    />
+  } @else {
+    <app-profile-edit-form
+      [user]="u"
+      [saving]="vm.saving()"
+      (saved)="onSaved($event)"
+      (cancelled)="onCancelled()"
+    />
   }
-</div>
+} @else {
+  <div class="state-message">Could not load profile.</div>
+}
