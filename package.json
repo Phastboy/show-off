@@ -12,6 +12,7 @@
     "start:prod": "pnpm serve:ssr:show-off"
   },
   "dependencies": {
+    "@angular/cdk": "~21.2.11",
     "@angular/common": "^21.2.0",
     "@angular/compiler": "^21.2.0",
     "@angular/core": "^21.2.0",

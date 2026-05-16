@@ -50,3 +50,4 @@ logs
 exclude*
 
 .env*
+.vercel
