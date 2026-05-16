@@ -18,30 +18,10 @@ export const routes: Routes = [
     ],
   },
   {
-    path: '',
-    canActivate: [authGuard],
-    children: [
-      // ── MAIN LAYOUT (Navbar + Bottom Tabs) ─────────────
-      {
-        path: '',
-        loadComponent: () => import('./shared/layouts/app-shell/app-shell').then((m) => m.AppShell),
-        children: [
-          {
-            path: 'profile',
-            loadComponent: () =>
-              import('./features/profile/profile-page/profile-page').then((m) => m.ProfilePage),
-          },
-          { path: '', redirectTo: 'venues', pathMatch: 'full' },
-        ],
-      },
-      // ── SUB-PAGE LAYOUT (Back Button + Centered Column) ─
-      {
-        path: '',
-        loadComponent: () =>
-          import('./shared/layouts/sub-page-shell/sub-page-shell').then((m) => m.SubPageShell),
-        children: [],
-      },
-    ],
-  },
-  { path: '**', redirectTo: 'venues' },
+  path: 'businesses',
+  loadChildren: () =>
+    import('./features/business-profile/business-profile.routes')
+      .then((m) => m.BUSINESS_PROFILE_ROUTES),
+},
+  { path: '**', redirectTo: 'login' },
 ];

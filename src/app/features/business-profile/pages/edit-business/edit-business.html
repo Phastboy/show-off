@@ -1,0 +1,41 @@
+<div class="edit-business">
+  @if (loading()) {
+    <div class="edit-business__loading">
+      <div class="skeleton skeleton--title"></div>
+      <div class="skeleton skeleton--body"></div>
+    </div>
+  } @else if (profile()) {
+    <header class="edit-business__header">
+      <div>
+        <h1 class="edit-business__title">{{ profile()!.name }}</h1>
+        <p class="edit-business__subtitle">Edit your business profile</p>
+      </div>
+      <span
+        class="status-badge"
+        [class.status-badge--verified]="profile()!.verificationStatus === 'VERIFIED'"
+        [class.status-badge--pending]="profile()!.verificationStatus === 'PENDING'"
+        [class.status-badge--rejected]="profile()!.verificationStatus === 'REJECTED'"
+      >
+        {{ profile()!.verificationStatus }}
+      </span>
+    </header>
+
+    <div class="edit-business__body">
+      <section class="edit-business__card">
+        <h2 class="edit-business__card-title">Branding</h2>
+        <app-branding-upload [profile]="profile()!" />
+      </section>
+
+      <section class="edit-business__card">
+        <h2 class="edit-business__card-title">Details</h2>
+        <app-business-form
+          [existing]="profile()"
+          [submitting]="submitting()"
+          (submitted)="submit($event)"
+          (cancelled)="cancel()"
+        />
+      </section>
+    </div>
+  }
+</div>
+

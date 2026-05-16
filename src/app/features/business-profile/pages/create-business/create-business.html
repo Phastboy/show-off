@@ -1,0 +1,15 @@
+<div class="create-business">
+  <header class="create-business__header">
+    <h1 class="create-business__title">Create a business</h1>
+    <p class="create-business__subtitle">Set up your commercial storefront on Pulse</p>
+  </header>
+
+  <div class="create-business__body">
+    <app-business-form
+      [submitting]="submitting()"
+      (submitted)="submit($event)"
+      (cancelled)="cancel()"
+    />
+  </div>
+</div>
+
