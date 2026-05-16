@@ -1,0 +1,30 @@
+<div class="auth-form">
+  <header class="auth-form__header">
+    <h1 class="auth-form__title">Welcome back</h1>
+    <p class="auth-form__subtitle">Sign in to manage your storefronts</p>
+  </header>
+
+  <form class="auth-form__body" [formGroup]="form" (ngSubmit)="submit()">
+
+    <app-email-password-fields [parentForm]="form" />
+
+    @if (error()) {
+      <div class="auth-form__error" role="alert">{{ error() }}</div>
+    }
+
+    <button class="btn btn--primary btn--full" type="submit" [disabled]="submitting()">
+      @if (submitting()) {
+        <span class="btn__spinner"></span>
+        Signing in...
+      } @else {
+        Sign in
+      }
+    </button>
+  </form>
+
+  <footer class="auth-form__footer">
+    Don't have an account?
+    <a routerLink="../register" class="auth-form__link">Create one</a>
+  </footer>
+</div>
+
