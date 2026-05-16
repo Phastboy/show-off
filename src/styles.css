@@ -1,11 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
 
 @theme {
   /* ============================================================
-     COLOR — Violet/Indigo monochromatic base
-     HSL: 250° hue, varying lightness + saturation
+     PRIMITIVE PALETTE — raw values, never used directly in components
+     Violet/Indigo base, HSL ~250°
      ============================================================ */
 
   --color-brand-50:  #f3f1ff;
@@ -20,77 +18,92 @@
   --color-brand-900: #3d169e;
   --color-brand-950: #240b6b;
 
-  /* Complementary accent — amber, sits opposite violet on the wheel */
-  --color-accent-50:  #fffbeb;
-  --color-accent-100: #fef3c7;
-  --color-accent-200: #fde68a;
-  --color-accent-300: #fcd34d;
-  --color-accent-400: #fbbf24;
-  --color-accent-500: #f59e0b;
-  --color-accent-600: #d97706;
-  --color-accent-700: #b45309;
-  --color-accent-800: #92400e;
-  --color-accent-900: #78350f;
+  /* Complementary accent — amber */
+  --color-amber-50:  #fffbeb;
+  --color-amber-100: #fef3c7;
+  --color-amber-200: #fde68a;
+  --color-amber-300: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-amber-700: #b45309;
+  --color-amber-800: #92400e;
+  --color-amber-900: #78350f;
 
-  /* Neutral — cool gray with a faint violet undertone */
-  --color-surface-0:   #ffffff;
-  --color-surface-50:  #f8f7ff;
-  --color-surface-100: #f0eefe;
-  --color-surface-200: #e2defd;
-  --color-surface-300: #c9c2f9;
-  --color-surface-400: #a89ef0;
-  --color-surface-500: #8679e0;
-  --color-surface-600: #6b5dc8;
-  --color-surface-700: #5548a8;
-  --color-surface-800: #3d3480;
-  --color-surface-900: #282260;
-  --color-surface-950: #14103a;
+  /* Violet-tinted neutrals */
+  --color-neutral-0:   #ffffff;
+  --color-neutral-50:  #f8f7ff;
+  --color-neutral-100: #f0eefe;
+  --color-neutral-200: #e2defd;
+  --color-neutral-300: #c9c2f9;
+  --color-neutral-400: #a89ef0;
+  --color-neutral-500: #8679e0;
+  --color-neutral-600: #6b5dc8;
+  --color-neutral-700: #5548a8;
+  --color-neutral-800: #3d3480;
+  --color-neutral-900: #282260;
+  --color-neutral-950: #14103a;
 
-  /* Semantic */
-  --color-success: #22c55e;
-  --color-warning: #f59e0b;
-  --color-error:   #ef4444;
-  --color-info:    #6c2eff;
+  /* Status primitives */
+  --color-green-100: #dcfce7;
+  --color-green-500: #22c55e;
+  --color-green-700: #15803d;
+  --color-green-900: #14532d;
+
+  --color-red-100:   #fee2e2;
+  --color-red-500:   #ef4444;
+  --color-red-700:   #b91c1c;
+  --color-red-900:   #7f1d1d;
+
+  --color-yellow-100: #fef9c3;
+  --color-yellow-500: #eab308;
+  --color-yellow-700: #a16207;
+  --color-yellow-900: #713f12;
+
+  --color-blue-100: #dbeafe;
+  --color-blue-500: #3b82f6;
+  --color-blue-700: #1d4ed8;
+
+  /* Pure */
+  --color-white: #ffffff;
+  --color-black: #000000;
 
   /* ============================================================
-     TYPOGRAPHY — Modular scale (ratio 1.25 — Major Third)
-     Base: 16px
+     TYPOGRAPHY
      ============================================================ */
 
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans:    'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
 
-  /* Scale: base × 1.25^n */
-  --text-xs:   0.64rem;   /* 10.24px */
-  --text-sm:   0.8rem;    /* 12.8px  */
-  --text-base: 1rem;      /* 16px    */
-  --text-md:   1.25rem;   /* 20px    */
-  --text-lg:   1.563rem;  /* 25px    */
-  --text-xl:   1.953rem;  /* 31.25px */
-  --text-2xl:  2.441rem;  /* 39px    */
-  --text-3xl:  3.052rem;  /* 48.8px  */
-  --text-4xl:  3.815rem;  /* 61px    */
+  /* Modular scale — Major Third ×1.25, base 16px */
+  --text-xs:   0.64rem;
+  --text-sm:   0.8rem;
+  --text-base: 1rem;
+  --text-md:   1.25rem;
+  --text-lg:   1.563rem;
+  --text-xl:   1.953rem;
+  --text-2xl:  2.441rem;
+  --text-3xl:  3.052rem;
+  --text-4xl:  3.815rem;
 
-  --font-weight-regular:   400;
-  --font-weight-medium:    500;
-  --font-weight-semibold:  600;
-  --font-weight-bold:      700;
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
 
-  /* Leading — tied to scale for rhythm */
-  --leading-tight:  1.2;
-  --leading-snug:   1.35;
-  --leading-normal: 1.5;
+  --leading-tight:   1.2;
+  --leading-snug:    1.35;
+  --leading-normal:  1.5;
   --leading-relaxed: 1.7;
 
-  /* Tracking */
-  --tracking-tight:  -0.02em;
-  --tracking-normal:  0em;
-  --tracking-wide:    0.04em;
-  --tracking-widest:  0.12em;
+  --tracking-tight:   -0.02em;
+  --tracking-normal:   0em;
+  --tracking-wide:     0.04em;
+  --tracking-widest:   0.12em;
 
   /* ============================================================
-     SPACING — 4px base unit, powers of same modular rhythm
+     SPACING — 4px base unit
      ============================================================ */
 
   --spacing-0:   0px;
@@ -118,7 +131,7 @@
   --spacing-64:  256px;
 
   /* ============================================================
-     BORDER RADIUS — intentional, not decorative
+     BORDER RADIUS
      ============================================================ */
 
   --radius-none: 0px;
@@ -128,17 +141,6 @@
   --radius-xl:   16px;
   --radius-2xl:  24px;
   --radius-full: 9999px;
-
-  /* ============================================================
-     SHADOWS — violet-tinted, depth without noise
-     ============================================================ */
-
-  --shadow-xs:  0 1px 2px 0 rgb(90 29 232 / 0.06);
-  --shadow-sm:  0 1px 3px 0 rgb(90 29 232 / 0.10), 0 1px 2px -1px rgb(90 29 232 / 0.08);
-  --shadow-md:  0 4px 6px -1px rgb(90 29 232 / 0.10), 0 2px 4px -2px rgb(90 29 232 / 0.08);
-  --shadow-lg:  0 10px 15px -3px rgb(90 29 232 / 0.10), 0 4px 6px -4px rgb(90 29 232 / 0.08);
-  --shadow-xl:  0 20px 25px -5px rgb(90 29 232 / 0.12), 0 8px 10px -6px rgb(90 29 232 / 0.08);
-  --shadow-glow: 0 0 24px 0 rgb(108 46 255 / 0.25);
 
   /* ============================================================
      TRANSITIONS
@@ -164,7 +166,7 @@
   --breakpoint-2xl: 1536px;
 
   /* ============================================================
-     Z-INDEX — named layers, no magic numbers
+     Z-INDEX — named layers
      ============================================================ */
 
   --z-base:    0;
@@ -176,7 +178,226 @@
 }
 
 /* ============================================================
-   BASE RESET & DOCUMENT DEFAULTS
+   SEMANTIC TOKENS — LIGHT THEME (default)
+   Components only ever reference these, never primitives.
+   ============================================================ */
+
+:root {
+  /* Backgrounds */
+  --bg-base:       var(--color-neutral-50);
+  --bg-surface:    var(--color-neutral-0);
+  --bg-subtle:     var(--color-neutral-100);
+  --bg-muted:      var(--color-neutral-200);
+  --bg-inverse:    var(--color-neutral-950);
+
+  /* Borders */
+  --border-subtle:  var(--color-neutral-100);
+  --border-default: var(--color-neutral-200);
+  --border-strong:  var(--color-neutral-300);
+
+  /* Text */
+  --text-primary:   var(--color-neutral-950);
+  --text-secondary: var(--color-neutral-700);
+  --text-muted:     var(--color-neutral-500);
+  --text-disabled:  var(--color-neutral-400);
+  --text-inverse:   var(--color-neutral-0);
+  --text-on-brand:  var(--color-white);
+
+  /* Brand interactive */
+  --brand-default:  var(--color-brand-600);
+  --brand-hover:    var(--color-brand-700);
+  --brand-active:   var(--color-brand-800);
+  --brand-subtle:   var(--color-brand-50);
+  --brand-muted:    var(--color-brand-100);
+  --brand-text:     var(--color-brand-700);
+  --brand-border:   var(--color-brand-300);
+
+  /* Focus rings */
+  --focus-ring-brand: 0 0 0 3px color-mix(in srgb, var(--color-brand-500) 20%, transparent);
+  --focus-ring-error: 0 0 0 3px color-mix(in srgb, var(--color-red-500) 20%, transparent);
+
+  /* Status — success */
+  --status-success-bg:     var(--color-green-100);
+  --status-success-text:   var(--color-green-700);
+  --status-success-border: color-mix(in srgb, var(--color-green-500) 30%, transparent);
+
+  /* Status — warning */
+  --status-warning-bg:     var(--color-yellow-100);
+  --status-warning-text:   var(--color-yellow-700);
+  --status-warning-border: color-mix(in srgb, var(--color-yellow-500) 30%, transparent);
+
+  /* Status — error */
+  --status-error-bg:     color-mix(in srgb, var(--color-red-500) 6%, transparent);
+  --status-error-text:   var(--color-red-700);
+  --status-error-border: color-mix(in srgb, var(--color-red-500) 20%, transparent);
+
+  /* Status — info */
+  --status-info-bg:     var(--color-blue-100);
+  --status-info-text:   var(--color-blue-700);
+  --status-info-border: color-mix(in srgb, var(--color-blue-500) 30%, transparent);
+
+  /* Verification badges */
+  --badge-verified-bg:   color-mix(in srgb, var(--color-green-500) 10%, transparent);
+  --badge-verified-text: var(--color-green-700);
+  --badge-pending-bg:    color-mix(in srgb, var(--color-amber-500) 10%, transparent);
+  --badge-pending-text:  var(--color-amber-700);
+  --badge-rejected-bg:   color-mix(in srgb, var(--color-red-500) 10%, transparent);
+  --badge-rejected-text: var(--color-red-700);
+  --badge-public-bg:     color-mix(in srgb, var(--color-brand-500) 10%, transparent);
+  --badge-public-text:   var(--color-brand-700);
+  --badge-private-bg:    var(--color-neutral-100);
+  --badge-private-text:  var(--color-neutral-500);
+
+  /* Shadows — violet-tinted */
+  --shadow-xs: 0 1px 2px 0 color-mix(in srgb, var(--color-brand-700) 6%, transparent);
+  --shadow-sm: 0 1px 3px 0 color-mix(in srgb, var(--color-brand-700) 10%, transparent),
+               0 1px 2px -1px color-mix(in srgb, var(--color-brand-700) 8%, transparent);
+  --shadow-md: 0 4px 6px -1px color-mix(in srgb, var(--color-brand-700) 10%, transparent),
+               0 2px 4px -2px color-mix(in srgb, var(--color-brand-700) 8%, transparent);
+  --shadow-lg: 0 10px 15px -3px color-mix(in srgb, var(--color-brand-700) 10%, transparent),
+               0 4px 6px -4px color-mix(in srgb, var(--color-brand-700) 8%, transparent);
+  --shadow-xl: 0 20px 25px -5px color-mix(in srgb, var(--color-brand-700) 12%, transparent),
+               0 8px 10px -6px color-mix(in srgb, var(--color-brand-700) 8%, transparent);
+  --shadow-glow: 0 0 24px 0 color-mix(in srgb, var(--color-brand-600) 25%, transparent);
+
+  /* Input */
+  --input-bg:            var(--color-neutral-0);
+  --input-border:        var(--color-neutral-200);
+  --input-border-focus:  var(--color-brand-500);
+  --input-border-error:  var(--color-red-500);
+  --input-text:          var(--color-neutral-900);
+  --input-placeholder:   var(--color-neutral-300);
+
+  /* Scrollbar */
+  --scrollbar-track: var(--color-neutral-100);
+  --scrollbar-thumb: var(--color-neutral-300);
+  --scrollbar-thumb-hover: var(--color-brand-400);
+
+  /* Selection */
+  --selection-bg:   var(--color-brand-200);
+  --selection-text: var(--color-brand-950);
+
+  /* Auth backdrop */
+  --auth-backdrop-bg: var(--color-brand-950);
+  --auth-backdrop-dot: color-mix(in srgb, var(--color-white) 4%, transparent);
+  --auth-backdrop-glow-brand: color-mix(in srgb, var(--color-brand-500) 15%, transparent);
+  --auth-backdrop-glow-amber: color-mix(in srgb, var(--color-amber-400) 8%, transparent);
+
+  /* Skeleton */
+  --skeleton-from: var(--color-neutral-100);
+  --skeleton-to:   var(--color-neutral-200);
+}
+
+/* ============================================================
+   SEMANTIC TOKENS — DARK THEME
+   ============================================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Backgrounds */
+    --bg-base:       var(--color-neutral-950);
+    --bg-surface:    var(--color-neutral-900);
+    --bg-subtle:     var(--color-neutral-800);
+    --bg-muted:      var(--color-neutral-700);
+    --bg-inverse:    var(--color-neutral-0);
+
+    /* Borders */
+    --border-subtle:  color-mix(in srgb, var(--color-neutral-700) 60%, transparent);
+    --border-default: var(--color-neutral-700);
+    --border-strong:  var(--color-neutral-600);
+
+    /* Text */
+    --text-primary:   var(--color-neutral-50);
+    --text-secondary: var(--color-neutral-300);
+    --text-muted:     var(--color-neutral-400);
+    --text-disabled:  var(--color-neutral-600);
+    --text-inverse:   var(--color-neutral-950);
+    --text-on-brand:  var(--color-white);
+
+    /* Brand interactive */
+    --brand-default:  var(--color-brand-500);
+    --brand-hover:    var(--color-brand-400);
+    --brand-active:   var(--color-brand-300);
+    --brand-subtle:   color-mix(in srgb, var(--color-brand-500) 12%, transparent);
+    --brand-muted:    color-mix(in srgb, var(--color-brand-500) 20%, transparent);
+    --brand-text:     var(--color-brand-300);
+    --brand-border:   var(--color-brand-700);
+
+    /* Status — success */
+    --status-success-bg:     color-mix(in srgb, var(--color-green-500) 12%, transparent);
+    --status-success-text:   var(--color-green-500);
+    --status-success-border: color-mix(in srgb, var(--color-green-500) 25%, transparent);
+
+    /* Status — warning */
+    --status-warning-bg:     color-mix(in srgb, var(--color-yellow-500) 12%, transparent);
+    --status-warning-text:   var(--color-yellow-500);
+    --status-warning-border: color-mix(in srgb, var(--color-yellow-500) 25%, transparent);
+
+    /* Status — error */
+    --status-error-bg:     color-mix(in srgb, var(--color-red-500) 12%, transparent);
+    --status-error-text:   var(--color-red-500);
+    --status-error-border: color-mix(in srgb, var(--color-red-500) 25%, transparent);
+
+    /* Status — info */
+    --status-info-bg:     color-mix(in srgb, var(--color-blue-500) 12%, transparent);
+    --status-info-text:   var(--color-blue-500);
+    --status-info-border: color-mix(in srgb, var(--color-blue-500) 25%, transparent);
+
+    /* Verification badges */
+    --badge-verified-bg:   color-mix(in srgb, var(--color-green-500) 12%, transparent);
+    --badge-verified-text: var(--color-green-500);
+    --badge-pending-bg:    color-mix(in srgb, var(--color-amber-500) 12%, transparent);
+    --badge-pending-text:  var(--color-amber-400);
+    --badge-rejected-bg:   color-mix(in srgb, var(--color-red-500) 12%, transparent);
+    --badge-rejected-text: var(--color-red-500);
+    --badge-public-bg:     color-mix(in srgb, var(--color-brand-500) 15%, transparent);
+    --badge-public-text:   var(--color-brand-300);
+    --badge-private-bg:    color-mix(in srgb, var(--color-neutral-500) 15%, transparent);
+    --badge-private-text:  var(--color-neutral-400);
+
+    /* Shadows — more diffuse in dark */
+    --shadow-xs: 0 1px 2px 0 color-mix(in srgb, var(--color-black) 30%, transparent);
+    --shadow-sm: 0 1px 3px 0 color-mix(in srgb, var(--color-black) 40%, transparent),
+                 0 1px 2px -1px color-mix(in srgb, var(--color-black) 30%, transparent);
+    --shadow-md: 0 4px 6px -1px color-mix(in srgb, var(--color-black) 40%, transparent),
+                 0 2px 4px -2px color-mix(in srgb, var(--color-black) 30%, transparent);
+    --shadow-lg: 0 10px 15px -3px color-mix(in srgb, var(--color-black) 50%, transparent),
+                 0 4px 6px -4px color-mix(in srgb, var(--color-black) 30%, transparent);
+    --shadow-xl: 0 20px 25px -5px color-mix(in srgb, var(--color-black) 50%, transparent),
+                 0 8px 10px -6px color-mix(in srgb, var(--color-black) 30%, transparent);
+    --shadow-glow: 0 0 24px 0 color-mix(in srgb, var(--color-brand-500) 30%, transparent);
+
+    /* Input */
+    --input-bg:            var(--color-neutral-900);
+    --input-border:        var(--color-neutral-700);
+    --input-border-focus:  var(--color-brand-400);
+    --input-border-error:  var(--color-red-500);
+    --input-text:          var(--color-neutral-50);
+    --input-placeholder:   var(--color-neutral-600);
+
+    /* Scrollbar */
+    --scrollbar-track: var(--color-neutral-900);
+    --scrollbar-thumb: var(--color-neutral-700);
+    --scrollbar-thumb-hover: var(--color-brand-600);
+
+    /* Selection */
+    --selection-bg:   var(--color-brand-800);
+    --selection-text: var(--color-brand-100);
+
+    /* Auth backdrop — slightly lighter in dark since page bg is already dark */
+    --auth-backdrop-bg: var(--color-brand-900);
+    --auth-backdrop-dot: color-mix(in srgb, var(--color-white) 5%, transparent);
+    --auth-backdrop-glow-brand: color-mix(in srgb, var(--color-brand-400) 20%, transparent);
+    --auth-backdrop-glow-amber: color-mix(in srgb, var(--color-amber-400) 10%, transparent);
+
+    /* Skeleton */
+    --skeleton-from: var(--color-neutral-800);
+    --skeleton-to:   var(--color-neutral-700);
+  }
+}
+
+/* ============================================================
+   BASE RESET
    ============================================================ */
 
 *,
@@ -199,8 +420,8 @@ body {
   font-size: var(--text-base);
   font-weight: var(--font-weight-regular);
   line-height: var(--leading-normal);
-  color: var(--color-surface-900);
-  background-color: var(--color-surface-50);
+  color: var(--text-primary);
+  background-color: var(--bg-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -222,17 +443,17 @@ a {
 }
 
 /* ============================================================
-   FOCUS — accessible, brand-consistent
+   FOCUS
    ============================================================ */
 
 :focus-visible {
-  outline: 2px solid var(--color-brand-500);
+  outline: 2px solid var(--brand-default);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
 
 /* ============================================================
-   SCROLLBAR — subtle, on-brand
+   SCROLLBAR
    ============================================================ */
 
 ::-webkit-scrollbar {
@@ -241,16 +462,16 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-surface-100);
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-surface-300);
+  background: var(--scrollbar-thumb);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-brand-400);
+  background: var(--scrollbar-thumb-hover);
 }
 
 /* ============================================================
@@ -258,6 +479,7 @@ a {
    ============================================================ */
 
 ::selection {
-  background-color: var(--color-brand-200);
-  color: var(--color-brand-950);
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
 }
+
