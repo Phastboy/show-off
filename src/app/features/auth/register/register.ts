@@ -39,7 +39,7 @@ export class Register {
     this.auth.register({ ...value, name: this.nameControl.value }).subscribe({
       next: () => {
         this.auth.login(value).subscribe({
-          next: () => this.router.navigate(['/profile']),
+          next: () => this.router.navigate(['/businesses']),
           error: () => this.router.navigate(['/auth/login']),
         });
       },
