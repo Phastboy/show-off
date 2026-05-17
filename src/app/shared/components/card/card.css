@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-sm);
+}
+
+:host(.card--pad-none) { padding: 0; }
+:host(.card--pad-sm)   { padding: var(--spacing-4); }
+:host(.card--pad-md)   { padding: var(--spacing-6); }
+:host(.card--pad-lg)   { padding: var(--spacing-8); }
+
+:host(.card--hoverable) {
+  transition:
+    box-shadow var(--duration-normal) var(--ease-out-expo),
+    transform var(--duration-normal) var(--ease-out-expo);
+  cursor: pointer;
+}
+
+:host(.card--hoverable:hover) {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
