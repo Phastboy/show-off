@@ -5,20 +5,14 @@
   </header>
 
   <form class="auth-form__body" [formGroup]="form" (ngSubmit)="submit()">
-
     <app-email-password-fields [parentForm]="form" />
 
     @if (error()) {
       <div class="auth-form__error" role="alert">{{ error() }}</div>
     }
 
-    <button class="btn btn--primary btn--full" type="submit" [disabled]="submitting()">
-      @if (submitting()) {
-        <span class="btn__spinner"></span>
-        Signing in...
-      } @else {
-        Sign in
-      }
+    <button appBtn variant="primary" class="btn--full" type="submit" [loading]="submitting()">
+      {{ submitting() ? 'Signing in...' : 'Sign in' }}
     </button>
   </form>
 
@@ -27,4 +21,3 @@
     <a routerLink="../register" class="auth-form__link">Create one</a>
   </footer>
 </div>
-

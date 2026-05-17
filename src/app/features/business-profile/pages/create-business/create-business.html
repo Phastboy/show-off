@@ -4,12 +4,11 @@
     <p class="create-business__subtitle">Set up your commercial storefront on Pulse</p>
   </header>
 
-  <div class="create-business__body">
+  <app-card padding="lg">
     <app-business-form
       [submitting]="submitting()"
       (submitted)="submit($event)"
       (cancelled)="cancel()"
     />
-  </div>
+  </app-card>
 </div>
-

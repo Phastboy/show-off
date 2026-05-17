@@ -3,44 +3,26 @@
   <div class="biz-form__section">
     <h2 class="biz-form__section-title">Identity</h2>
 
-    <div class="field" [class.field--error]="isInvalid('name')">
-      <label class="field__label" for="name">Business name <span class="field__required">*</span></label>
-      <input
-        id="name"
-        class="field__input"
-        type="text"
-        formControlName="name"
-        placeholder="e.g. Pulse Logistics"
-        autocomplete="organization"
-      />
-      @if (isInvalid('name')) {
-        <span class="field__error">Name is required (2–100 characters)</span>
-      }
-    </div>
+    <app-field label="Business name" [required]="true"
+      [error]="isInvalid('name') ? getError('name') : null"
+      [attr.data-error]="isInvalid('name') || null">
+      <input formControlName="name" type="text" placeholder="e.g. Pulse Logistics" autocomplete="organization" />
+    </app-field>
 
-    <div class="field" [class.field--error]="isInvalid('businessType')">
-      <label class="field__label" for="businessType">Business type <span class="field__required">*</span></label>
-      <select id="businessType" class="field__select" formControlName="businessType">
+    <app-field label="Business type" [required]="true"
+      [error]="isInvalid('businessType') ? getError('businessType') : null"
+      [attr.data-error]="isInvalid('businessType') || null">
+      <select formControlName="businessType">
         <option value="" disabled>Select a type</option>
-        @for (option of businessTypeOptions; track option[0]) {
-          <option [value]="option[0]">{{ option[1] }}</option>
+        @for (opt of businessTypeOptions; track opt[0]) {
+          <option [value]="opt[0]">{{ opt[1] }}</option>
         }
       </select>
-      @if (isInvalid('businessType')) {
-        <span class="field__error">Please select a business type</span>
-      }
-    </div>
+    </app-field>
 
-    <div class="field">
-      <label class="field__label" for="description">Description</label>
-      <textarea
-        id="description"
-        class="field__textarea"
-        formControlName="description"
-        placeholder="Tell people what you offer..."
-        rows="4"
-      ></textarea>
-    </div>
+    <app-field label="Description" hint="Tell people what you offer">
+      <textarea formControlName="description" rows="4" placeholder="Tell people what you offer..."></textarea>
+    </app-field>
   </div>
 
   <div class="biz-form__section">
@@ -48,30 +30,23 @@
     <p class="biz-form__section-hint">How customers reach you outside Pulse</p>
 
     <div class="biz-form__row">
-      <div class="field">
-        <label class="field__label" for="phoneNumber">Phone</label>
-        <input id="phoneNumber" class="field__input" type="tel" formControlName="phoneNumber" placeholder="+1 555 000 0000" />
-      </div>
-
-      <div class="field">
-        <label class="field__label" for="whatsapp">WhatsApp</label>
-        <input id="whatsapp" class="field__input" type="tel" formControlName="whatsapp" placeholder="+1 555 000 0000" />
-      </div>
+      <app-field label="Phone">
+        <input formControlName="phoneNumber" type="tel" placeholder="+1 555 000 0000" />
+      </app-field>
+      <app-field label="WhatsApp">
+        <input formControlName="whatsapp" type="tel" placeholder="+1 555 000 0000" />
+      </app-field>
     </div>
 
     <div class="biz-form__row">
-      <div class="field" [class.field--error]="isInvalid('email')">
-        <label class="field__label" for="email">Email</label>
-        <input id="email" class="field__input" type="email" formControlName="email" placeholder="hello@yourbusiness.com" />
-        @if (isInvalid('email')) {
-          <span class="field__error">Enter a valid email address</span>
-        }
-      </div>
-
-      <div class="field">
-        <label class="field__label" for="location">Location</label>
-        <input id="location" class="field__input" type="text" formControlName="location" placeholder="Lagos, Nigeria" />
-      </div>
+      <app-field label="Email"
+        [error]="isInvalid('email') ? getError('email') : null"
+        [attr.data-error]="isInvalid('email') || null">
+        <input formControlName="email" type="email" placeholder="hello@yourbusiness.com" />
+      </app-field>
+      <app-field label="Location">
+        <input formControlName="location" type="text" placeholder="Lagos, Nigeria" />
+      </app-field>
     </div>
   </div>
 
@@ -80,9 +55,7 @@
 
     <label class="toggle">
       <input class="toggle__input" type="checkbox" formControlName="isPublic" />
-      <span class="toggle__track">
-        <span class="toggle__thumb"></span>
-      </span>
+      <span class="toggle__track"><span class="toggle__thumb"></span></span>
       <span class="toggle__label">
         <span class="toggle__label-title">Make this profile public</span>
         <span class="toggle__label-hint">Public profiles appear in discovery and have a shareable storefront page</span>
@@ -91,16 +64,10 @@
   </div>
 
   <div class="biz-form__actions">
-    <button type="button" class="btn btn--ghost" (click)="cancel()">Cancel</button>
-    <button type="submit" class="btn btn--primary" [disabled]="submitting()">
-      @if (submitting()) {
-        <span class="btn__spinner"></span>
-        Saving...
-      } @else {
-        {{ existing() ? 'Save changes' : 'Create business' }}
-      }
+    <button appBtn variant="ghost" type="button" (click)="cancel()">Cancel</button>
+    <button appBtn variant="primary" type="submit" [loading]="submitting()">
+      {{ existing() ? 'Save changes' : 'Create business' }}
     </button>
   </div>
 
 </form>
-

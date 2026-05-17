@@ -3,10 +3,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth';
 import { EmailPasswordFields } from '../../components/email-password-fields/email-password-fields';
+import { Btn } from '../../../../shared/components/btn/btn';
+import { Field } from '../../../../shared/components/field/field';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, RouterLink, EmailPasswordFields],
+  imports: [ReactiveFormsModule, RouterLink, EmailPasswordFields, Btn, Field],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './register.html',
   styleUrl: './register.css',
@@ -30,13 +32,10 @@ export class Register {
       this.form.markAllAsTouched();
       return;
     }
-
     this.submitting.set(true);
     this.error.set(null);
-
     this.auth.register(this.form.getRawValue()).subscribe({
       next: () => {
-        // Auto-login after successful registration
         const { email, password } = this.form.getRawValue();
         this.auth.login({ email, password }).subscribe({
           error: () => this.router.navigate(['/auth/login']),
@@ -44,11 +43,17 @@ export class Register {
       },
       error: (err) => {
         this.error.set(
-          err.status === 409 ? 'An account with this email already exists.' : 'Registration failed. Please try again.',
+          err.status === 409
+            ? 'An account with this email already exists.'
+            : 'Registration failed. Please try again.',
         );
         this.submitting.set(false);
       },
     });
   }
-}
 
+  protected nameInvalid(): boolean {
+    const c = this.form.get('name');
+    return !!(c?.invalid && c.touched);
+  }
+}

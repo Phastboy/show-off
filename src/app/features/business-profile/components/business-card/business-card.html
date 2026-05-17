@@ -1,4 +1,4 @@
-<article class="biz-card">
+<app-card [hoverable]="true" padding="none" class="biz-card">
   <div
     class="biz-card__banner"
     [style.background-image]="business().bannerUrl ? 'url(' + business().bannerUrl + ')' : null"
@@ -14,7 +14,6 @@
           <span class="biz-card__logo-initial">{{ business().name.charAt(0) }}</span>
         }
       </div>
-
       <div class="biz-card__meta">
         <h3 class="biz-card__name">{{ business().name }}</h3>
         <span class="biz-card__type">{{ typeLabels[business().businessType] }}</span>
@@ -27,27 +26,14 @@
 
     <div class="biz-card__footer">
       <div class="biz-card__badges">
-        <span
-          class="badge"
-          [class.badge--public]="business().isPublic"
-          [class.badge--private]="!business().isPublic"
-        >
+        <app-badge [variant]="business().isPublic ? 'public' : 'private'">
           {{ business().isPublic ? 'Public' : 'Private' }}
-        </span>
-        <span
-          class="badge"
-          [class.badge--verified]="business().verificationStatus === 'VERIFIED'"
-          [class.badge--pending]="business().verificationStatus === 'PENDING'"
-          [class.badge--rejected]="business().verificationStatus === 'REJECTED'"
-        >
+        </app-badge>
+        <app-badge [variant]="business().verificationStatus.toLowerCase()">
           {{ business().verificationStatus }}
-        </span>
+        </app-badge>
       </div>
-
-      <a [routerLink]="[business().id, 'edit']" class="biz-card__edit-link">
-        Edit →
-      </a>
+      <a [routerLink]="[business().id, 'edit']" class="biz-card__edit-link">Edit →</a>
     </div>
   </div>
-</article>
-
+</app-card>

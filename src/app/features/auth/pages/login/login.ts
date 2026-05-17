@@ -3,10 +3,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth';
 import { EmailPasswordFields } from '../../components/email-password-fields/email-password-fields';
+import { Btn } from '../../../../shared/components/btn/btn';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterLink, EmailPasswordFields],
+  imports: [ReactiveFormsModule, RouterLink, EmailPasswordFields, Btn],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './login.html',
   styleUrl: './login.css',
@@ -28,10 +29,8 @@ export class Login {
       this.form.markAllAsTouched();
       return;
     }
-
     this.submitting.set(true);
     this.error.set(null);
-
     this.auth.login(this.form.getRawValue()).subscribe({
       error: () => {
         this.error.set('Invalid email or password.');
@@ -40,4 +39,3 @@ export class Login {
     });
   }
 }
-

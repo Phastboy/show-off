@@ -15,7 +15,7 @@
 .my-businesses__title {
   font-size: var(--text-2xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-surface-950);
+  color: var(--text-primary);
   letter-spacing: var(--tracking-tight);
   line-height: var(--leading-tight);
 }
@@ -23,7 +23,7 @@
 .my-businesses__subtitle {
   margin-top: var(--spacing-1);
   font-size: var(--text-sm);
-  color: var(--color-surface-500);
+  color: var(--text-muted);
 }
 
 .my-businesses__grid {
@@ -32,7 +32,6 @@
   gap: var(--spacing-6);
 }
 
-/* Empty state */
 .my-businesses__empty {
   display: flex;
   justify-content: center;
@@ -48,83 +47,14 @@
   max-width: 360px;
 }
 
-.empty-state__icon {
-  font-size: 3rem;
-  line-height: 1;
-}
-
 .empty-state__title {
   font-size: var(--text-lg);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-surface-900);
+  color: var(--text-primary);
 }
 
 .empty-state__body {
   font-size: var(--text-sm);
-  color: var(--color-surface-500);
+  color: var(--text-muted);
   line-height: var(--leading-relaxed);
 }
-
-/* Skeleton */
-.skeleton-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: var(--spacing-6);
-}
-
-.skeleton-card {
-  height: 200px;
-  border-radius: var(--radius-xl);
-  background: linear-gradient(
-    90deg,
-    var(--color-surface-100) 25%,
-    var(--color-surface-200) 50%,
-    var(--color-surface-100) 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* Shared button primitives */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  padding: var(--spacing-2-5) var(--spacing-5);
-  border-radius: var(--radius-lg);
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-semibold);
-  transition: all var(--duration-fast) var(--ease-out-expo);
-  white-space: nowrap;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.btn--primary {
-  background: var(--color-brand-600);
-  color: #fff;
-  box-shadow: var(--shadow-sm);
-}
-
-.btn--primary:hover {
-  background: var(--color-brand-700);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
-}
-
-.btn--primary:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow-xs);
-}
-
-.btn__icon {
-  font-size: var(--text-md);
-  line-height: 1;
-}
-

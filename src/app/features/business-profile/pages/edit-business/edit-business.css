@@ -15,7 +15,7 @@
 .edit-business__title {
   font-size: var(--text-2xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-surface-950);
+  color: var(--text-primary);
   letter-spacing: var(--tracking-tight);
   line-height: var(--leading-tight);
 }
@@ -23,7 +23,7 @@
 .edit-business__subtitle {
   margin-top: var(--spacing-1);
   font-size: var(--text-sm);
-  color: var(--color-surface-500);
+  color: var(--text-muted);
 }
 
 .edit-business__body {
@@ -32,84 +32,17 @@
   gap: var(--spacing-6);
 }
 
-.edit-business__card {
-  background: var(--color-surface-0);
-  border: 1px solid var(--color-surface-200);
-  border-radius: var(--radius-2xl);
-  padding: var(--spacing-8);
-  box-shadow: var(--shadow-sm);
-}
-
 .edit-business__card-title {
   font-size: var(--text-base);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-surface-900);
+  color: var(--text-primary);
   margin-bottom: var(--spacing-6);
   padding-bottom: var(--spacing-3);
-  border-bottom: 1px solid var(--color-surface-100);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-/* Status badge */
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--spacing-1) var(--spacing-3);
-  border-radius: var(--radius-full);
-  font-size: var(--text-xs);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  background: var(--color-surface-100);
-  color: var(--color-surface-500);
-  white-space: nowrap;
-}
-
-.status-badge--verified {
-  background: rgb(34 197 94 / 0.1);
-  color: #15803d;
-}
-
-.status-badge--pending {
-  background: rgb(245 158 11 / 0.1);
-  color: #b45309;
-}
-
-.status-badge--rejected {
-  background: rgb(239 68 68 / 0.1);
-  color: #b91c1c;
-}
-
-/* Skeleton */
 .edit-business__loading {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-6);
 }
-
-.skeleton {
-  border-radius: var(--radius-lg);
-  background: linear-gradient(
-    90deg,
-    var(--color-surface-100) 25%,
-    var(--color-surface-200) 50%,
-    var(--color-surface-100) 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-}
-
-.skeleton--title {
-  height: 40px;
-  width: 240px;
-}
-
-.skeleton--body {
-  height: 400px;
-  border-radius: var(--radius-2xl);
-}
-
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-

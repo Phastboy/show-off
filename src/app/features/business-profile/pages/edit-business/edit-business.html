@@ -1,8 +1,8 @@
 <div class="edit-business">
   @if (loading()) {
     <div class="edit-business__loading">
-      <div class="skeleton skeleton--title"></div>
-      <div class="skeleton skeleton--body"></div>
+      <app-skeleton variant="line" width="240px" height="40px" />
+      <app-skeleton variant="block" height="400px" />
     </div>
   } @else if (profile()) {
     <header class="edit-business__header">
@@ -10,23 +10,18 @@
         <h1 class="edit-business__title">{{ profile()!.name }}</h1>
         <p class="edit-business__subtitle">Edit your business profile</p>
       </div>
-      <span
-        class="status-badge"
-        [class.status-badge--verified]="profile()!.verificationStatus === 'VERIFIED'"
-        [class.status-badge--pending]="profile()!.verificationStatus === 'PENDING'"
-        [class.status-badge--rejected]="profile()!.verificationStatus === 'REJECTED'"
-      >
+      <app-badge [variant]="profile()!.verificationStatus.toLowerCase()">
         {{ profile()!.verificationStatus }}
-      </span>
+      </app-badge>
     </header>
 
     <div class="edit-business__body">
-      <section class="edit-business__card">
+      <app-card padding="lg">
         <h2 class="edit-business__card-title">Branding</h2>
         <app-branding-upload [profile]="profile()!" />
-      </section>
+      </app-card>
 
-      <section class="edit-business__card">
+      <app-card padding="lg">
         <h2 class="edit-business__card-title">Details</h2>
         <app-business-form
           [existing]="profile()"
@@ -34,8 +29,7 @@
           (submitted)="submit($event)"
           (cancelled)="cancel()"
         />
-      </section>
+      </app-card>
     </div>
   }
 </div>
-

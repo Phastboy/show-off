@@ -11,7 +11,7 @@
 .create-business__title {
   font-size: var(--text-2xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-surface-950);
+  color: var(--text-primary);
   letter-spacing: var(--tracking-tight);
   line-height: var(--leading-tight);
 }
@@ -19,14 +19,5 @@
 .create-business__subtitle {
   margin-top: var(--spacing-2);
   font-size: var(--text-sm);
-  color: var(--color-surface-500);
+  color: var(--text-muted);
 }
-
-.create-business__body {
-  background: var(--color-surface-0);
-  border: 1px solid var(--color-surface-200);
-  border-radius: var(--radius-2xl);
-  padding: var(--spacing-8);
-  box-shadow: var(--shadow-sm);
-}
-

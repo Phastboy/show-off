@@ -1,32 +1,24 @@
 <section class="my-businesses">
   <header class="my-businesses__header">
-    <div class="my-businesses__heading">
+    <div>
       <h1 class="my-businesses__title">My Businesses</h1>
       <p class="my-businesses__subtitle">Manage your commercial storefronts</p>
     </div>
-    <a routerLink="new" class="btn btn--primary">
-      <span class="btn__icon">+</span>
-      New Business
-    </a>
+    <a appBtn variant="primary" routerLink="new">New Business</a>
   </header>
 
   @if (service.loading()) {
-    <div class="my-businesses__state">
-      <div class="skeleton-grid">
-        @for (_ of [1, 2, 3]; track $index) {
-          <div class="skeleton-card"></div>
-        }
-      </div>
+    <div class="my-businesses__grid">
+      @for (_ of [1, 2, 3]; track $index) {
+        <app-skeleton variant="block" height="200px" />
+      }
     </div>
   } @else if (service.myBusinesses().length === 0) {
     <div class="my-businesses__empty">
       <div class="empty-state">
-        <div class="empty-state__icon">🏪</div>
-        <h2 class="empty-state__title">No storefronts yet</h2>
-        <p class="empty-state__body">
-          Create your first business profile to start getting discovered.
-        </p>
-        <a routerLink="new" class="btn btn--primary">Create your first business</a>
+        <p class="empty-state__title">No storefronts yet</p>
+        <p class="empty-state__body">Create your first business profile to start getting discovered.</p>
+        <a appBtn variant="primary" routerLink="new">Create your first business</a>
       </div>
     </div>
   } @else {
@@ -37,4 +29,3 @@
     </div>
   }
 </section>
-

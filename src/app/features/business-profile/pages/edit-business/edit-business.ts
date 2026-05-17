@@ -1,19 +1,16 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessProfileService } from '../../services/business-profile';
 import { BusinessForm, BusinessFormValue } from '../../components/business-form/business-form';
 import { BrandingUpload } from '../../components/branding-upload/branding-upload';
+import { Badge } from '../../../../shared/components/badge/badge';
+import { Card } from '../../../../shared/components/card/card';
+import { Skeleton } from '../../../../shared/components/skeleton/skeleton';
 import type { BusinessProfile, UpdateBusinessProfileDto } from '../../models/business-profile.models';
 
 @Component({
   selector: 'app-edit-business',
-  imports: [BusinessForm, BrandingUpload],
+  imports: [BusinessForm, BrandingUpload, Badge, Card, Skeleton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './edit-business.html',
   styleUrl: './edit-business.css',
@@ -30,10 +27,7 @@ export class EditBusiness implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id')!;
     this.service.getById(id).subscribe({
-      next: (p) => {
-        this.profile.set(p);
-        this.loading.set(false);
-      },
+      next: (p) => { this.profile.set(p); this.loading.set(false); },
       error: () => this.router.navigate(['/businesses']),
     });
   }
@@ -42,10 +36,7 @@ export class EditBusiness implements OnInit {
     const id = this.profile()!.id;
     this.submitting.set(true);
     this.service.update(id, value as UpdateBusinessProfileDto).subscribe({
-      next: (updated) => {
-        this.profile.set(updated);
-        this.submitting.set(false);
-      },
+      next: (updated) => { this.profile.set(updated); this.submitting.set(false); },
       error: () => this.submitting.set(false),
     });
   }
@@ -54,4 +45,3 @@ export class EditBusiness implements OnInit {
     this.router.navigate(['/businesses']);
   }
 }
-

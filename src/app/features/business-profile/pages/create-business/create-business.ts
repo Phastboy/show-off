@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { Router } from '@angular/router';
 import { BusinessProfileService } from '../../services/business-profile';
 import { BusinessForm, BusinessFormValue } from '../../components/business-form/business-form';
+import { Card } from '../../../../shared/components/card/card';
 import type { CreateBusinessProfileDto } from '../../models/business-profile.models';
 
 @Component({
   selector: 'app-create-business',
-  imports: [BusinessForm],
+  imports: [BusinessForm, Card],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './create-business.html',
   styleUrl: './create-business.css',
@@ -29,4 +30,3 @@ export class CreateBusiness {
     this.router.navigate(['/businesses']);
   }
 }
-
