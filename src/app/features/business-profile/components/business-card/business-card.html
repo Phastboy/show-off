@@ -29,8 +29,8 @@
         <app-badge [variant]="business().isPublic ? 'public' : 'private'">
           {{ business().isPublic ? 'Public' : 'Private' }}
         </app-badge>
-        <app-badge [variant]="business().verificationStatus.toLowerCase()">
-          {{ business().verificationStatus }}
+        <app-badge [variant]="getStatusVariant(business().verificationStatus)">
+          {{ verificationLabels[business().verificationStatus] }}
         </app-badge>
       </div>
       <a [routerLink]="[business().id, 'edit']" class="biz-card__edit-link">Edit →</a>

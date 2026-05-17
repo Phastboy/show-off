@@ -10,8 +10,8 @@
         <h1 class="edit-business__title">{{ profile()!.name }}</h1>
         <p class="edit-business__subtitle">Edit your business profile</p>
       </div>
-      <app-badge [variant]="profile()!.verificationStatus.toLowerCase()">
-        {{ profile()!.verificationStatus }}
+      <app-badge [variant]="getStatusVariant(profile()!.verificationStatus)">
+        {{ verificationLabels[profile()!.verificationStatus] }}
       </app-badge>
     </header>
 

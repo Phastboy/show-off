@@ -3,10 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessProfileService } from '../../services/business-profile';
 import { BusinessForm, BusinessFormValue } from '../../components/business-form/business-form';
 import { BrandingUpload } from '../../components/branding-upload/branding-upload';
-import { Badge } from '../../../../shared/components/badge/badge';
+import { Badge, BadgeVariant } from '../../../../shared/components/badge/badge';
 import { Card } from '../../../../shared/components/card/card';
 import { Skeleton } from '../../../../shared/components/skeleton/skeleton';
-import type { BusinessProfile, UpdateBusinessProfileDto } from '../../models/business-profile.models';
+import type { BusinessProfile, UpdateBusinessProfileDto, VerificationStatus } from '../../models/business-profile.models';
+import { VERIFICATION_STATUS_LABELS } from '../../models/business-profile.models';
 
 @Component({
   selector: 'app-edit-business',
@@ -23,6 +24,7 @@ export class EditBusiness implements OnInit {
   protected readonly profile = signal<BusinessProfile | null>(null);
   protected readonly submitting = signal(false);
   protected readonly loading = signal(true);
+  protected readonly verificationLabels = VERIFICATION_STATUS_LABELS;
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id')!;
@@ -30,6 +32,16 @@ export class EditBusiness implements OnInit {
       next: (p) => { this.profile.set(p); this.loading.set(false); },
       error: () => this.router.navigate(['/businesses']),
     });
+  }
+
+  protected getStatusVariant(status: VerificationStatus): BadgeVariant {
+    const map: Record<VerificationStatus, BadgeVariant> = {
+      UNVERIFIED: 'default',
+      PENDING: 'pending',
+      VERIFIED: 'verified',
+      REJECTED: 'rejected',
+    };
+    return map[status];
   }
 
   protected submit(value: BusinessFormValue) {
