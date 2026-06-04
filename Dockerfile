@@ -9,7 +9,7 @@ WORKDIR /app
 # Copy lockfile and package.json
 COPY package.json pnpm-lock.yaml ./
 
-RUN pnpm install --frozen-lockfile --dangerously-allow-all-builds
+RUN pnpm install --frozen-lockfile
 
 # Copy source and build the SSR app
 COPY . .
