@@ -1,8 +1,8 @@
 # ── Stage 1: Build ──
-FROM node:24-slim AS build
+FROM node:26-slim AS build
 
 # Install pnpm 11
-RUN npm install -g pnpm@11.0.8
+RUN npm install -g pnpm@11.5.1
 
 WORKDIR /app
 
@@ -16,7 +16,7 @@ COPY . .
 RUN pnpm run build
 
 # ── Stage 2: Runtime ──
-FROM node:24-slim
+FROM node:26-slim
 
 WORKDIR /app
 

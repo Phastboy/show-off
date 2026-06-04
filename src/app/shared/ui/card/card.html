@@ -1,0 +1,27 @@
+<div class="card"
+  [class.card-border]="border()"
+  [class.card-border-none]="!border()"
+  [class.card-shadow-none]="shadow() === 'none'"
+  [class.card-shadow-sm]="shadow() === 'sm'"
+  [class.card-shadow-md]="shadow() === 'md'"
+  [class.card-shadow-lg]="shadow() === 'lg'"
+  [class.card-padding-none]="padding() === 'none'"
+  [class.card-padding-sm]="padding() === 'sm'"
+  [class.card-padding-md]="padding() === 'md'"
+  [class.card-padding-lg]="padding() === 'lg'"
+  [class.card-hover]="hoverEffect()">
+  <!-- Header Projection (Optional: automatically displays if header content projected) -->
+  <div class="card-header">
+    <ng-content select="[card-header]"/>
+  </div>
+
+  <!-- Main Body content projection -->
+  <div class="card-body">
+    <ng-content/>
+  </div>
+
+  <!-- Footer Projection (Optional: automatically displays if footer content projected) -->
+  <div class="card-footer">
+    <ng-content select="[card-footer]"/>
+  </div>
+</div>

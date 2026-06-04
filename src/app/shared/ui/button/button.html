@@ -1,0 +1,25 @@
+<button
+  class="btn"
+  [class.btn-primary]="variant() === 'primary'"
+  [class.btn-secondary]="variant() === 'secondary'"
+  [class.btn-outline]="variant() === 'outline'"
+  [class.btn-text]="variant() === 'text'"
+  [class.btn-sm]="size() === 'sm'"
+  [class.btn-md]="size() === 'md'"
+  [class.btn-lg]="size() === 'lg'"
+  [class.btn-disabled]="disabled() || loading()"
+  [disabled]="disabled() || loading()"
+  (click)="handleClick($event)"
+  [attr.aria-disabled]="disabled() || loading()">
+
+  <!-- Loading Spinner -->
+@if (loading()) {
+  <svg class="btn-spinner" fill="none" viewBox="0 0 24 24">
+    <circle class="btn-spinner-track" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+    <path class="btn-spinner-head" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+  </svg>
+}
+
+  <!-- Projection slot: parent is entirely responsible for text and custom layouts -->
+  <ng-content />
+</button>

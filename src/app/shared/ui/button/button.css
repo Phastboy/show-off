@@ -1,0 +1,49 @@
+@reference "../../../../styles.css";
+
+.btn {
+  @apply inline-flex items-center justify-center font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-xl text-center;
+}
+
+.btn-sm {
+  @apply px-3.5 py-1.5 text-xs;
+}
+
+.btn-md {
+  @apply px-5 py-2.5 text-sm;
+}
+
+.btn-lg {
+  @apply px-7 py-3 text-base;
+}
+
+.btn-primary {
+  @apply bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary-hover)] text-white border border-transparent shadow-sm;
+}
+
+.btn-secondary {
+  @apply bg-[var(--color-surface-raised)] hover:bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)] shadow-sm;
+}
+
+.btn-outline {
+  @apply bg-transparent border border-[var(--color-border)] text-[var(--color-text)] hover:bg-[var(--color-surface-raised)];
+}
+
+.btn-text {
+  @apply bg-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-raised)];
+}
+
+.btn-disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.btn-spinner {
+  @apply animate-spin -ml-1 mr-2 h-4 w-4 text-current inline;
+}
+
+.btn-spinner-track {
+  @apply opacity-25;
+}
+
+.btn-spinner-head {
+  @apply opacity-75;
+}

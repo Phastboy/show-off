@@ -1,17 +1,16 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
   {
-  path: 'auth',
-  loadChildren: () =>
-    import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
-},
+    path: 'personalization',
+    loadChildren: () =>
+      import('./features/personalization/personalization.routes').then(
+        (m) => m.personalizationRoutes,
+      ),
+  },
   {
-  path: 'businesses',
-  loadChildren: () =>
-    import('./features/business-profile/business-profile.routes')
-      .then((m) => m.BUSINESS_PROFILE_ROUTES),
-},
-  { path: '**', redirectTo: 'login' },
+    path: '',
+    redirectTo: 'personalization',
+    pathMatch: 'full',
+  },
 ];

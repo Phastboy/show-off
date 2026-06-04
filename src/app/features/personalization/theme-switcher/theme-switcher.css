@@ -1,0 +1,29 @@
+@reference "../../../../styles.css";
+
+.theme-switcher-layout {
+  @apply min-h-screen flex flex-col items-center justify-center px-4 py-8;
+}
+
+.theme-switcher-card {
+  @apply w-full max-w-md text-center block;
+}
+
+.theme-switcher-title {
+  @apply text-3xl font-bold mb-2 text-[var(--color-text)];
+}
+
+.theme-switcher-subtitle {
+  @apply text-[var(--color-text-muted)] mb-8;
+}
+
+.theme-switcher-value {
+  @apply font-semibold capitalize text-[var(--color-brand-primary)];
+}
+
+.theme-switcher-actions {
+  @apply flex flex-wrap justify-center gap-3 mb-8;
+}
+
+.theme-switcher-icon {
+  @apply w-4 h-4 mr-2;
+}

@@ -43,11 +43,4 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 
-# logs and debug files
-*.log
-*.log.*
-logs
 exclude*
-
-.env*
-.vercel

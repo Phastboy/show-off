@@ -1,0 +1,61 @@
+@reference "../../../../styles.css";
+
+.card {
+  @apply bg-[var(--color-surface-raised)] text-[var(--color-text)] rounded-2xl overflow-hidden transition-all duration-300;
+}
+
+.card-border {
+  @apply border border-[var(--color-border)];
+}
+
+.card-border-none {
+  /* No border */
+}
+
+.card-shadow-none {
+  /* No shadow */
+}
+
+.card-shadow-sm {
+  @apply shadow-sm shadow-black/10;
+}
+
+.card-shadow-md {
+  @apply shadow-md shadow-black/20;
+}
+
+.card-shadow-lg {
+  @apply shadow-lg shadow-black/30;
+}
+
+.card-padding-none {
+  @apply p-0;
+}
+
+.card-padding-sm {
+  @apply p-4;
+}
+
+.card-padding-md {
+  @apply p-6;
+}
+
+.card-padding-lg {
+  @apply p-8;
+}
+
+.card-hover {
+  @apply hover:-translate-y-1 hover:shadow-xl hover:shadow-[var(--color-brand-primary)]/15 hover:border-[var(--color-border)] cursor-pointer;
+}
+
+.card-header {
+  @apply border-b border-[var(--color-border)] pb-4 mb-4 last:mb-0 last:pb-0 empty:hidden;
+}
+
+.card-body {
+  @apply relative w-full;
+}
+
+.card-footer {
+  @apply border-t border-[var(--color-border)] pt-4 mt-4 empty:hidden;
+}

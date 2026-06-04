@@ -1,0 +1,36 @@
+<main class="theme-switcher-layout">
+  <app-card class="theme-switcher-card">
+    <h1 class="theme-switcher-title">Theme Switcher</h1>
+
+    <p class="theme-switcher-subtitle">
+      Current setting:
+      <span class="theme-switcher-value">{{ themeService.theme() }}</span>
+    </p>
+
+    <div class="theme-switcher-actions">
+      <app-button
+        (click)="themeService.setTheme('light')"
+        [variant]="themeService.theme() === 'light' ? 'primary' : 'secondary'"
+      >
+        <svg lucideSun class="theme-switcher-icon"></svg>
+        Light
+      </app-button>
+
+      <app-button
+        (click)="themeService.setTheme('dark')"
+        [variant]="themeService.theme() === 'dark' ? 'primary' : 'secondary'"
+      >
+        <svg lucideMoon class="theme-switcher-icon"></svg>
+        Dark
+      </app-button>
+
+      <app-button
+        (click)="themeService.setTheme('system')"
+        [variant]="themeService.theme() === 'system' ? 'primary' : 'secondary'"
+      >
+        <svg lucideMonitor class="theme-switcher-icon"></svg>
+        System
+      </app-button>
+    </div>
+  </app-card>
+</main>

@@ -1,7 +1,7 @@
-import { inject, Injectable, PLATFORM_ID, REQUEST } from '@angular/core';
+import { inject, Service, PLATFORM_ID, REQUEST } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class CookieService {
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   // REQUEST is only available during SSR; null on the browser
