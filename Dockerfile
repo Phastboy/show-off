@@ -21,7 +21,7 @@ FROM node:26-slim
 WORKDIR /app
 
 # Copy the build output
-COPY --from=build /app/dist/show-off /app/dist/show-off
+COPY --from=build /app/dist/app /app/dist/app
 
 EXPOSE 4000
 ENV NODE_ENV=production
