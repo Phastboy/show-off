@@ -27,4 +27,4 @@ EXPOSE 4000
 ENV NODE_ENV=production
 
 # Start the SSR server
-CMD ["node", "dist/show-off/server/server.mjs"]
+CMD ["node", "dist/app/server/server.mjs"]
