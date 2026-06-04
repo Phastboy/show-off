@@ -50,5 +50,16 @@
     "typescript": "~6.0.3",
     "vitest": "^4.1.8"
   },
-  "packageManager": "pnpm@11.5.1"
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "26.0.0",
+      "onFail": "download"
+    },
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.5.1",
+      "onFail": "download"
+    }
+  }
 }
