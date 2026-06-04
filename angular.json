@@ -50,11 +50,16 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.css"],
+            "styles": [
+              "src/styles.css"
+            ],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "security": {
-              "allowedHosts": []
+              "allowedHosts": [
+                "localhost",
+                "*.onrender.com"
+              ]
             },
             "ssr": {
               "entry": "src/server.ts"
@@ -99,22 +104,36 @@
         "storybook": {
           "builder": "@storybook/angular:start-storybook",
           "options": {
-            "styles": ["src/styles.css"],
+            "styles": [
+              "src/styles.css"
+            ],
             "configDir": ".storybook",
             "browserTarget": "app:build",
             "compodoc": true,
-            "compodocArgs": ["-e", "json", "-d", "."],
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "."
+            ],
             "port": 6006
           }
         },
         "build-storybook": {
           "builder": "@storybook/angular:build-storybook",
           "options": {
-            "styles": ["src/styles.css"],
+            "styles": [
+              "src/styles.css"
+            ],
             "configDir": ".storybook",
             "browserTarget": "app:build",
             "compodoc": true,
-            "compodocArgs": ["-e", "json", "-d", "."],
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "."
+            ],
             "outputDir": "storybook-static"
           }
         }
