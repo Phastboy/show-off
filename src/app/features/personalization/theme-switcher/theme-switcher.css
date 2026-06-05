@@ -1,29 +1,51 @@
-@reference "../../../../styles.css";
-
 .theme-switcher-layout {
-  @apply min-h-screen flex flex-col items-center justify-center px-4 py-8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .theme-switcher-card {
-  @apply w-full max-w-md text-center block;
+  width: 100%;
+  max-width: 28rem;
+  text-align: center;
+  display: block;
 }
 
 .theme-switcher-title {
-  @apply text-3xl font-bold mb-2 text-[var(--color-text)];
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
 }
 
 .theme-switcher-subtitle {
-  @apply text-[var(--color-text-muted)] mb-8;
+  color: var(--color-text-muted);
+  margin-bottom: 2rem;
 }
 
 .theme-switcher-value {
-  @apply font-semibold capitalize text-[var(--color-brand-primary)];
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--color-brand-primary);
 }
 
 .theme-switcher-actions {
-  @apply flex flex-wrap justify-center gap-3 mb-8;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
 }
 
 .theme-switcher-icon {
-  @apply w-4 h-4 mr-2;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
 }

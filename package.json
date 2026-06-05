@@ -51,15 +51,15 @@
     "vitest": "^4.1.8"
   },
   "devEngines": {
-    "runtime": {
-      "name": "node",
-      "version": ">=26.0.0",
-      "onFail": "download"
-    },
     "packageManager": {
       "name": "pnpm",
       "version": ">=11.5.1",
       "onFail": "download"
+    },
+    "runtime": {
+      "name": "node",
+      "version": ">=26.0.0",
+      "onFail": "error"
     }
   }
 }

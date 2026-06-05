@@ -1,49 +1,102 @@
-@reference "../../../../styles.css";
-
 .btn {
-  @apply inline-flex items-center justify-center font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-xl text-center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  transition: all 150ms;
+  border-radius: 0.75rem;
+  text-align: center;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-brand-primary);
 }
 
 .btn-sm {
-  @apply px-3.5 py-1.5 text-xs;
+  padding: 0.375rem 0.875rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 .btn-md {
-  @apply px-5 py-2.5 text-sm;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .btn-lg {
-  @apply px-7 py-3 text-base;
+  padding: 0.75rem 1.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .btn-primary {
-  @apply bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary-hover)] text-white border border-transparent shadow-sm;
+  background-color: var(--color-brand-primary);
+  color: white;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-brand-primary-hover);
 }
 
 .btn-secondary {
-  @apply bg-[var(--color-surface-raised)] hover:bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)] shadow-sm;
+  background-color: var(--color-surface-raised);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-surface);
 }
 
 .btn-outline {
-  @apply bg-transparent border border-[var(--color-border)] text-[var(--color-text)] hover:bg-[var(--color-surface-raised)];
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-surface-raised);
 }
 
 .btn-text {
-  @apply bg-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-raised)];
+  background-color: transparent;
+  border: none;
+  color: var(--color-text-muted);
+}
+
+.btn-text:hover {
+  color: var(--color-text);
+  background-color: var(--color-surface-raised);
 }
 
 .btn-disabled {
-  @apply opacity-50 cursor-not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .btn-spinner {
-  @apply animate-spin -ml-1 mr-2 h-4 w-4 text-current inline;
+  display: inline-block;
+  animation: spin 1s linear infinite;
+  margin-left: -0.25rem;
+  margin-right: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+  color: currentColor;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .btn-spinner-track {
-  @apply opacity-25;
+  opacity: 0.25;
 }
 
 .btn-spinner-head {
-  @apply opacity-75;
+  opacity: 0.75;
 }
